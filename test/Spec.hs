@@ -4,8 +4,13 @@ import Test.QuickCheck
 import Lib as L
 import SparseBinary as SB
 
-emptySparse :: SpecWith (Arg Int)
-emptySparse = it "Empty" undefined
+emptySparse :: SpecWith ()
+emptySparse = it "Empty" (shouldBe 5 4)
+sbTest :: IO()
+sbTest = do
+   hspec $ do
+     describe "Sparse" $ do
+       emptySparse
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
@@ -21,3 +26,4 @@ exampleTest = do
 main :: IO ()
 main = do
   exampleTest
+  sbTest
