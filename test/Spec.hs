@@ -2,6 +2,7 @@ module Main where
 import Test.Hspec
 import Test.QuickCheck
 import Lib as L
+import SparseBinary as SB
 
 main :: IO ()
 main = do
