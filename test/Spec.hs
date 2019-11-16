@@ -5,7 +5,7 @@ import Lib as L
 import SparseBinary as SB
 
 emptySparse :: SpecWith ()
-emptySparse = it "Empty" (shouldBe 5 4)
+emptySparse = it "Empty" (shouldBe (SB.getSparseBinary 0) [])
 sbTest :: IO()
 sbTest = do
    hspec $ do
@@ -25,5 +25,4 @@ exampleTest = do
 
 main :: IO ()
 main = do
-  exampleTest
   sbTest
