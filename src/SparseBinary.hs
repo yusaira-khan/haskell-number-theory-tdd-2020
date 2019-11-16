@@ -1,3 +1,3 @@
 module SparseBinary(getSparseBinary) where
-getSparseBinary :: a -> b
-getSparseBinary _ = undefined
+getSparseBinary :: Int -> [Int]
+getSparseBinary _ = []
