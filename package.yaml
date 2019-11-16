@@ -22,7 +22,6 @@ description:         Please see the README on GitHub at <https://github.com/gith
 dependencies:
 - base >= 4.7 && < 5
 - hspec
-
 library:
   source-dirs: src
   ghc-options: -Wall -fwarn-tabs
@@ -40,11 +39,14 @@ executables:
 
 tests:
   number-theory-tdd-test:
+    main-is:             Spec.hs
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    build-depends:
+    - hspec
     dependencies:
     - number-theory-tdd
