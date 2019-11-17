@@ -8,11 +8,14 @@ emptySparse :: SpecWith ()
 emptySparse = it "Empty" (shouldBe (SB.getSparseBinary 0) [])
 testOne :: SpecWith ()
 testOne = it "One" $ shouldBe (SB.getSparseBinary 1) [1]
+testNegOne :: SpecWith ()
+testNegOne = it "Neg one needs multi component newtype" $ shouldBe (SB.getSparseBinary (-1)) undefined
 sbTest :: IO()
 sbTest = do
    hspec $ do
      describe "Sparse" $ do
        emptySparse
+       testNegOne
        testOne
 exampleTest :: IO()
 exampleTest = do
