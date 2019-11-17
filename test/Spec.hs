@@ -6,11 +6,14 @@ import SparseBinary as SB
 
 emptySparse :: SpecWith ()
 emptySparse = it "Empty" (shouldBe (SB.getSparseBinary 0) [])
+testOne :: SpecWith ()
+testOne = it "One" $ shouldBe (SB.getSparseBinary 1) [1]
 sbTest :: IO()
 sbTest = do
    hspec $ do
      describe "Sparse" $ do
        emptySparse
+       testOne
 exampleTest :: IO()
 exampleTest = do
    hspec $ do

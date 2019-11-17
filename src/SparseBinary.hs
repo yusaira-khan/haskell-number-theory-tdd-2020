@@ -1,3 +1,3 @@
 module SparseBinary(getSparseBinary) where
 getSparseBinary :: Int -> [Int]
-getSparseBinary _ = []
+getSparseBinary num = if (num == 0) then [] else [num]
