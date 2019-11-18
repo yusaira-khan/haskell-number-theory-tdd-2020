@@ -19,8 +19,9 @@ sbTest = do
    hspec $ do
      describe "Sparse" $ do
        emptySparse
-       --testNegOne
+       testNegOne
        testOne
+       testThree
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
