@@ -12,6 +12,8 @@ testOne :: SpecWith ()
 testOne = it "One" $ checkRepr (1,[1])
 testNegOne :: SpecWith ()
 testNegOne = it "Negative One needs multi component newtype" $ checkRepr (-1,undefined)
+testTwo :: SpecWith ()
+testTwo = it "Two" $ checkRepr (2,[2])
 testThree :: SpecWith ()
 testThree = it "Three" $ checkRepr (3,[1,2])
 sbTest :: IO()
@@ -21,6 +23,7 @@ sbTest = do
        emptySparse
        testNegOne
        testOne
+       testTwo
        testThree
 exampleTest :: IO()
 exampleTest = do
