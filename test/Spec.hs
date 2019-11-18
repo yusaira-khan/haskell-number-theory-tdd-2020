@@ -4,18 +4,22 @@ import Test.QuickCheck
 import Lib as L
 import SparseBinary as SB
 
+checkRepr ::(Int,[Int]) -> Expectation
+checkRepr (num,repr) = shouldBe (SB.getSparseBinary num) repr
 emptySparse :: SpecWith ()
-emptySparse = it "Empty" (shouldBe (SB.getSparseBinary 0) [])
+emptySparse = it "Empty" $ checkRepr (0,[])
 testOne :: SpecWith ()
-testOne = it "One" $ shouldBe (SB.getSparseBinary 1) [1]
+testOne = it "One" $ checkRepr (1,[1])
 testNegOne :: SpecWith ()
-testNegOne = it "Neg one needs multi component newtype" $ shouldBe (SB.getSparseBinary (-1)) undefined
+testNegOne = it "Neg one needs multi component newtype" $ checkRepr (-1,undefined)
+testThree :: SpecWith ()
+testThree = it "Three" $ checkRepr (3,[1,2])
 sbTest :: IO()
 sbTest = do
    hspec $ do
      describe "Sparse" $ do
        emptySparse
-       testNegOne
+       --testNegOne
        testOne
 exampleTest :: IO()
 exampleTest = do
