@@ -6,25 +6,17 @@ import SparseBinary as SB
 
 checkRepr ::(Int,[Int]) -> Expectation
 checkRepr (num,repr) = shouldBe (SB.toEnum' num) repr
-emptySparse :: SpecWith ()
-emptySparse = it "Empty" $ checkRepr (0,[])
-testOne :: SpecWith ()
-testOne = it "One" $ checkRepr (1,[1])
-testNegOne :: SpecWith ()
-testNegOne = it "Negative One needs multi component newtype" $ checkRepr (-1,undefined)
-testTwo :: SpecWith ()
-testTwo = it "Two" $ checkRepr (2,[2])
-testThree :: SpecWith ()
-testThree = it "Three" $ checkRepr (3,[1,2])
+testToEnum :: (String,Int,[Int]) -> SpecWith ()
+testToEnum (name,num,enum) = it name $ checkRepr (num,enum)
 sbTest :: IO()
 sbTest = do
    hspec $ do
-     describe "Sparse" $ do
-       emptySparse
-       testNegOne
-       testOne
-       testTwo
-       testThree
+     describe "Sparse Binary To Enum Test" $ do
+       testToEnum ("Negative One (needs multicomponent new type)" , -1 , undefined)
+       testToEnum ("Zero" , 0 , [])
+       testToEnum ("One" , 1 , [1])
+       testToEnum ("Three" , 2 , [2])
+       testToEnum ("Three" , 3 , [1,2])
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
