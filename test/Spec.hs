@@ -5,7 +5,7 @@ import Lib as L
 import SparseBinary as SB
 
 checkRepr ::(Int,[Int]) -> Expectation
-checkRepr (num,repr) = shouldBe (SB.getSparseBinary num) repr
+checkRepr (num,repr) = shouldBe (SB.toEnum' num) repr
 emptySparse :: SpecWith ()
 emptySparse = it "Empty" $ checkRepr (0,[])
 testOne :: SpecWith ()
