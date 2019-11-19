@@ -8,15 +8,20 @@ checkRepr ::(Int,[Int]) -> Expectation
 checkRepr (num,repr) = shouldBe (SB.toEnum' num) repr
 testToEnum :: (String,Int,[Int]) -> SpecWith ()
 testToEnum (name,num,enum) = it name $ checkRepr (num,enum)
+
+bindAllList :: (a -> SpecWith ()) -> [a] -> SpecWith ()
+bindAllList fun (a:[]) = fun a
+bindAllList fun (a:as) = fun a >>  bindAllList fun as
 sbTest :: IO()
 sbTest = do
    hspec $ do
      describe "Sparse Binary To Enum Test" $ do
-       testToEnum ("Negative One (needs multicomponent new type)" , -1 , undefined)
-       testToEnum ("Zero" , 0 , [])
-       testToEnum ("One" , 1 , [1])
-       testToEnum ("Three" , 2 , [2])
-       testToEnum ("Three" , 3 , [1,2])
+       let testList = [(
+                          "Negative One (needs multicomponent new type)" , -1 , undefined),(
+                          "Zero" , 0 , []),(
+                          "One" , 1 , [1]),(
+                          "Two" , 2 , [2]),(
+                          "Three" , 3 , [1,2])] in bindAllList testToEnum testList
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
