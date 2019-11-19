@@ -16,12 +16,14 @@ sbTest :: IO()
 sbTest = do
    hspec $ do
      describe "Sparse Binary To Enum Test" $ do
-       let testList = [(
-                          "Negative One (needs multicomponent new type)" , -1 , undefined),(
-                          "Zero" , 0 , []),(
-                          "One" , 1 , [1]),(
-                          "Two" , 2 , [2]),(
-                          "Three" , 3 , [1,2])] in bindAllList testToEnum testList
+       let testList = [
+             ("Negative One (needs multicomponent new type)" , -1 , undefined),
+             ("Zero" , 0 , []),
+             ("One" , 1 , [1]),
+             ("Two" , 2 , [2]),
+             ("Three" , 3 , [1,2]),
+             ]
+         in bindAllList testToEnum testList
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
