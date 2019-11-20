@@ -21,6 +21,7 @@ sbTest = do
              ("One" , 1 , [1]),
              ("Two" , 2 , [2]),
              ("Three" , 3 , [1,2]),
+             ("Four" , 4 , [4]),
              ("Negative One (needs multicomponent new type)" , -1 , undefined)]
          in bindAllList testToEnum testList
 exampleTest :: IO()
