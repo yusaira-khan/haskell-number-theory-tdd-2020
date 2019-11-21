@@ -6,8 +6,8 @@ import SparseBinary as SB
 
 checkRepr ::(Int,[Int]) -> Expectation
 checkRepr (num,repr) = shouldBe (SB.toEnum' num) repr
-testToEnum :: (String,Int,[Int]) -> SpecWith ()
-testToEnum (name,num,enum) = it name $ checkRepr (num,enum)
+testSbToEnum :: (String,Int,[Int]) -> SpecWith ()
+testSbToEnum (name,num,enum) = it name $ checkRepr (num,enum)
 
 bindAllList :: (a -> SpecWith ()) -> [a] -> SpecWith ()
 bindAllList fun (a:[]) = fun a
@@ -26,7 +26,11 @@ sbTest = do
              ("Seven" , 7 , [1,2,4]),
              ("Eight" , 8 , [8]),
              ("Zero" , 0 , [])]
-         in bindAllList testToEnum testList
+         in bindAllList testSbToEnum testList
+stTest :: IO()
+stTest = do
+   hspec $ do
+     describe "Sparse Ternary To Enum Test" $ do undefined 
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
@@ -42,3 +46,4 @@ exampleTest = do
 main :: IO ()
 main = do
   sbTest
+  stTest
