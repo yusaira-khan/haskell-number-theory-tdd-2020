@@ -3,11 +3,14 @@ import Test.Hspec
 import Test.QuickCheck
 import Lib as L
 import SparseBinary as SB
+import SparseTernary as ST
 
-checkRepr ::(Int,[Int]) -> Expectation
-checkRepr (num,repr) = shouldBe (SB.toEnum' num) repr
+checkRepr ::(Int-> [Int])->(Int,[Int]) -> Expectation
+checkRepr fun (num,repr) = shouldBe (fun num) repr
+testToEnum ::(Int-> [Int])-> (String,Int,[Int]) -> SpecWith ()
+testToEnum fun (name,num,enum) = it name $ checkRepr fun (num,enum)
 testSbToEnum :: (String,Int,[Int]) -> SpecWith ()
-testSbToEnum (name,num,enum) = it name $ checkRepr (num,enum)
+testSbToEnum = testToEnum SB.toEnum'
 
 bindAllList :: (a -> SpecWith ()) -> [a] -> SpecWith ()
 bindAllList fun (a:[]) = fun a
@@ -27,10 +30,15 @@ sbTest = do
              ("Eight" , 8 , [8]),
              ("Zero" , 0 , [])]
          in bindAllList testSbToEnum testList
+testStToEnum :: (String,Int,[Int]) -> SpecWith ()
+testStToEnum = testToEnum ST.toEnum'
 stTest :: IO()
 stTest = do
    hspec $ do
-     describe "Sparse Ternary To Enum Test" $ do undefined 
+     describe "Sparse Ternary To Enum Test" $ do
+       let testList = [
+             ("Zero" , 0 , [])]
+         in bindAllList testStToEnum testList
 exampleTest :: IO()
 exampleTest = do
    hspec $ do
