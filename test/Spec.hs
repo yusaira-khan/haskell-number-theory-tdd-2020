@@ -38,6 +38,7 @@ stTest = do
      describe "Sparse Ternary To Enum Test" $ do
        let testList = [
              ("One" , 1 , [1]),
+             ("Two" , 2 , [2]),
              ("Zero" , 0 , [])]
          in bindAllList testStToEnum testList
 exampleTest :: IO()
