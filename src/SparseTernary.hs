@@ -1,3 +1,4 @@
 module SparseTernary(toEnum') where
 toEnum' :: Int -> [Int]
-toEnum' _ = []
+toEnum' 0 = []
+toEnum' _ = [1]

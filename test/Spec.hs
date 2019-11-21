@@ -37,6 +37,7 @@ stTest = do
    hspec $ do
      describe "Sparse Ternary To Enum Test" $ do
        let testList = [
+             ("One" , 1 , [1]),
              ("Zero" , 0 , [])]
          in bindAllList testStToEnum testList
 exampleTest :: IO()
