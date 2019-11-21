@@ -39,6 +39,8 @@ stTest = do
        let testList = [
              ("One" , 1 , [1]),
              ("Two" , 2 , [2]),
+             ("Three" , 3 , [3]),
+             ("Four" , 4 , [1,3]),
              ("Zero" , 0 , [])]
          in bindAllList testStToEnum testList
 exampleTest :: IO()
