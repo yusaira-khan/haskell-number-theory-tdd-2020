@@ -42,6 +42,7 @@ stTest = do
              ("Three" , 3 , [3]),
              ("Four" , 4 , [1,3]),
              ("Five" , 5 , [2,3]),
+             ("Six" , 6 , [6]),
              ("Zero" , 0 , [])]
          in bindAllList testStToEnum testList
 exampleTest :: IO()
