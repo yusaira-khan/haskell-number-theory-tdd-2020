@@ -24,6 +24,7 @@ sbTest = do
              ("Five" , 5 , [1,4]),
              ("Six" , 6 , [2,4]),
              ("Seven" , 7 , [1,2,4]),
+             ("Eight" , 8 , [8]),
              ("Zero" , 0 , [])]
          in bindAllList testToEnum testList
 exampleTest :: IO()
