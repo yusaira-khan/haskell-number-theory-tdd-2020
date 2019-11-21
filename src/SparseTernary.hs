@@ -1,7 +1,9 @@
 module SparseTernary(toEnum') where
+getPow3 num = 3
 toEnum' :: Int -> [Int]
 toEnum' 0 = []
 toEnum' num =
-  if ((num <= 3) || (num`mod`3==0))
-  then [num]
-  else (toEnum' (num -3))++[3]
+  let pow3 = getPow3 num
+  in if ((num <= pow3) || (num`mod`pow3==0))
+    then [num]
+    else (toEnum' (num -pow3))++[pow3]
