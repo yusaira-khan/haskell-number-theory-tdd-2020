@@ -5,8 +5,8 @@ toEnum' :: Int -> [Int]
 toEnum' 0 = []
 toEnum' num =
   let pow3 = getPow3 num
-  in let pow3Mul = (num `quot` pow3)*pow3
-  in let rest = num `rem` pow3
+      pow3Mul = (num `quot` pow3)*pow3
+      rest = num `rem` pow3
   in if (num`mod`pow3==0)
     then [num]
     else (toEnum' rest)++[pow3Mul]
