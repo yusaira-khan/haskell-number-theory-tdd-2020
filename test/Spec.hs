@@ -12,12 +12,11 @@ testToEnum fun (name,num,enum) = it name $ checkRepr fun (num,enum)
 testSbToEnum :: (String,Int,[Int]) -> SpecWith ()
 testSbToEnum = testToEnum SB.toEnum'
 
-bindAllList :: (a -> SpecWith ()) -> [a] -> SpecWith ()
+bindAllList :: (Monad m) => (a -> m b) -> [a] -> m b
 bindAllList fun (a:[]) = fun a
 bindAllList fun (a:as) = fun a >>  bindAllList fun as
-sbTest :: IO()
+sbTest :: Spec
 sbTest = do
-   hspec $ do
      describe "Sparse Binary To Enum Test" $ do
        let testList = [
              ("One" , 1 , [1]),
@@ -32,9 +31,8 @@ sbTest = do
          in bindAllList testSbToEnum testList
 testStToEnum :: (String,Int,[Int]) -> SpecWith ()
 testStToEnum = testToEnum ST.toEnum'
-stTest :: IO()
+stTest :: Spec
 stTest = do
-   hspec $ do
      describe "Sparse Ternary To Enum Test" $ do
        let testList = [
              ("One" , 1 , [1]),
@@ -51,9 +49,9 @@ stTest = do
              ("Twelve" , 12 , [3,9]),
              ("Zero" , 0 , [])]
          in bindAllList testStToEnum testList
-exampleTest :: IO()
+exampleTest :: Spec
 exampleTest = do
-   hspec $ do
+--    hspec $ do
      describe "Addition" $ do
        it "1 + 1 is greater than 1" $ do
          (1 + 1) > 1 `shouldBe` True
@@ -61,9 +59,8 @@ exampleTest = do
          2 + 2 `shouldBe` 4
        it "x + 1 is always greater than x" $ do
          property $ \x -> x + 1 > (x :: Int)
-   L.someFunc
+   -- L.someFunc
 
 main :: IO ()
-main = do
-  sbTest
-  stTest
+main = 
+  let testlist =[sbTest,stTest] in bindAllList hspec testlist
