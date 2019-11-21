@@ -1,11 +1,11 @@
 module SparseBinary(toEnum') where
+largestPowerOfTwoBetween :: Int -> Int -> Int
+largestPowerOfTwoBetween pow2 num = case compare pow2 num of
+  GT -> (quot pow2 2)
+  EQ -> pow2
+  LT -> largestPowerOfTwoBetween (pow2*2) num
 largestPowerOfTwoSoFar :: Int -> Int
-largestPowerOfTwoSoFar num =
-  if num >= 4
-  then 4
-  else if num >= 2
-    then 2
-    else 1
+largestPowerOfTwoSoFar = largestPowerOfTwoBetween 1
 toEnum' :: Int -> [Int]
 toEnum' 0 = []
 toEnum' num =
