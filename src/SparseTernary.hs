@@ -1,6 +1,6 @@
 module SparseTernary(toEnum') where
 getPow3 :: Int-> Int
-getPow3 num = if num < 3 then 1 else 3
+getPow3 num = if num >=9 then 9 else if num < 3 then 1 else 3
 toEnum' :: Int -> [Int]
 toEnum' 0 = []
 toEnum' num =
