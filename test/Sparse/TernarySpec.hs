@@ -1,1 +1,1 @@
-module TernarySpec where
+module Sparse.TernarySpec where
