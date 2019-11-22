@@ -2,7 +2,7 @@ module Sparse.Ternary(toEnum') where
 import Sparse.Helper as H
 
 largestPow3SoFar :: Int -> Int
-largestPow3SoFar = H.largestPowerOfBaseBetween 3 1
+largestPow3SoFar = H.largestPowBaseBetween 3 1
 
 toEnum' :: Int -> [Int]
 toEnum' 0 = []
