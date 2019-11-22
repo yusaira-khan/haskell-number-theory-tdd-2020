@@ -8,8 +8,9 @@ toEnum' :: Int -> [Int]
 toEnum' 0 = []
 toEnum' num =
   let pow3 =  largestPow3SoFar num
-      pow3Mul = (num `quot` pow3)*pow3
+      digit = (num `quot` pow3)
+      pow3Mul = digit * pow3
       rest = num `rem` pow3
-  in if (num`mod`pow3==0)
-    then [num]
-    else (toEnum' rest)++[pow3Mul]
+  in if (num > pow3Mul)
+    then toEnum' rest++[pow3Mul]
+    else [num] -- num == pow3Mul
