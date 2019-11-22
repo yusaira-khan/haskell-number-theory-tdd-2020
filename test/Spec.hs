@@ -3,28 +3,8 @@ import Test.Hspec
 import Test.QuickCheck
 import Lib as L
 import Sparse.Ternary as ST
-import Helper as H
 import qualified Sparse.BinarySpec
-testStToEnum :: (String,Int,[Int]) -> SpecWith ()
-testStToEnum = testToEnum ST.toEnum'
-stTest :: Spec
-stTest = do
-     describe "Sparse Ternary To Enum Test" $ do
-       let testList = [
-             ("One" , 1 , [1]),
-             ("Two" , 2 , [2]),
-             ("Three" , 3 , [3]),
-             ("Four" , 4 , [1,3]),
-             ("Five" , 5 , [2,3]),
-             ("Six" , 6 , [6]),
-             ("Seven" , 7 , [1,6]),
-             ("Eight" , 8 , [2,6]),
-             ("Nine" , 9 , [9]),
-             ("Ten" , 10 , [1,9]),
-             ("Eleven" , 11 , [2,9]),
-             ("Twelve" , 12 , [3,9]),
-             ("Zero" , 0 , [])]
-         in bindAllList testStToEnum testList
+import qualified Sparse.TernarySpec
 exampleTest :: Spec
 exampleTest = do
 --    hspec $ do
@@ -38,5 +18,6 @@ exampleTest = do
    -- L.someFunc
 
 main :: IO ()
-main = 
-  let testlist =[Sparse.BinarySpec.spec,stTest] in bindAllList hspec testlist
+main = hspec $ do
+  Sparse.BinarySpec.spec
+  Sparse.TernarySpec.spec
