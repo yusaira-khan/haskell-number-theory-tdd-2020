@@ -2,8 +2,8 @@ module Main where
 import Test.Hspec
 import Test.QuickCheck
 import Lib as L
-import SparseBinary as SB
-import SparseTernary as ST
+import Sparse.Binary as SB
+import Sparse.Ternary as ST
 
 checkRepr ::(Int-> [Int])->(Int,[Int]) -> Expectation
 checkRepr fun (num,repr) = shouldBe (fun num) repr

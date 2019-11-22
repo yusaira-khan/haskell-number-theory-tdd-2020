@@ -1,4 +1,4 @@
-module SparseTernary(toEnum') where
+module Sparse.Ternary(toEnum') where
 
 getLargestPow3Between :: Int -> Int -> Int
 getLargestPow3Between pow3 high =

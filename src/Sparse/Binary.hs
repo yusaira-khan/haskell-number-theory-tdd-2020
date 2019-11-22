@@ -1,4 +1,4 @@
-module SparseBinary(toEnum') where
+module Sparse.Binary(toEnum') where
 largestPowerOfTwoBetween :: Int -> Int -> Int
 largestPowerOfTwoBetween pow2 num = case compare pow2 num of
   GT -> (quot pow2 2)
