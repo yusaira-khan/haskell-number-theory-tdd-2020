@@ -2,33 +2,9 @@ module Main where
 import Test.Hspec
 import Test.QuickCheck
 import Lib as L
-import Sparse.Binary as SB
 import Sparse.Ternary as ST
-
-checkRepr ::(Int-> [Int])->(Int,[Int]) -> Expectation
-checkRepr fun (num,repr) = shouldBe (fun num) repr
-testToEnum ::(Int-> [Int])-> (String,Int,[Int]) -> SpecWith ()
-testToEnum fun (name,num,enum) = it name $ checkRepr fun (num,enum)
-testSbToEnum :: (String,Int,[Int]) -> SpecWith ()
-testSbToEnum = testToEnum SB.toEnum'
-
-bindAllList :: (Monad m) => (a -> m b) -> [a] -> m b
-bindAllList fun (a:[]) = fun a
-bindAllList fun (a:as) = fun a >>  bindAllList fun as
-sbTest :: Spec
-sbTest = do
-     describe "Sparse Binary To Enum Test" $ do
-       let testList = [
-             ("One" , 1 , [1]),
-             ("Two" , 2 , [2]),
-             ("Three" , 3 , [1,2]),
-             ("Four" , 4 , [4]),
-             ("Five" , 5 , [1,4]),
-             ("Six" , 6 , [2,4]),
-             ("Seven" , 7 , [1,2,4]),
-             ("Eight" , 8 , [8]),
-             ("Zero" , 0 , [])]
-         in bindAllList testSbToEnum testList
+import Helper as H
+import qualified Sparse.BinarySpec
 testStToEnum :: (String,Int,[Int]) -> SpecWith ()
 testStToEnum = testToEnum ST.toEnum'
 stTest :: Spec
@@ -63,4 +39,4 @@ exampleTest = do
 
 main :: IO ()
 main = 
-  let testlist =[sbTest,stTest] in bindAllList hspec testlist
+  let testlist =[Sparse.BinarySpec.spec,stTest] in bindAllList hspec testlist
