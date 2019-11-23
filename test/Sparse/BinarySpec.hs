@@ -2,7 +2,8 @@ module Sparse.BinarySpec(spec) where
 import Test.Hspec
 import Sparse.Binary as SB
 import Helper as H
-testList = [
+
+enumTestList = [
  ("One" , 1 , [1]),
  ("Two" , 2 , [2]),
  ("Three" , 3 , [1,2]),
@@ -17,7 +18,12 @@ toEnumFun :: (String,Int,[Int]) -> SpecWith ()
 toEnumFun = H.testToEnum SB.toEnum'
 
 toEnum'' :: Spec
-toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" testList
+toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
+
+stringtest :: Spec
+stringtest = describe "Sparse Binary String" $ do
+  it "Zero" $ (show(SB.SBinary(SB.toEnum' 0))) `shouldBe` "(SB=[]|D=0|B=02_0)"
 
 spec = do
   toEnum''
+  stringtest
