@@ -20,5 +20,10 @@ fromEnum' = sum
 newtype SBinary = SBinary {sBinary :: [Int]}
 
 instance Show SBinary where
-  show sb = let liststr = show $sBinary sb
-    in "(SB=[]|D=0|B=02_0)"
+  show sb =
+    let listStr = show $sBinary sb
+        decStr = show $fromEnum' $ sBinary sb
+        baseStr = "02"
+        inBaseStr = decStr
+        fullBaseStr = baseStr ++ "_"++inBaseStr
+    in "(S="++listStr++"|D="++decStr++"|B="++fullBaseStr++")"
