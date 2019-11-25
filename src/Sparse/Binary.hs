@@ -22,8 +22,11 @@ newtype SBinary = SBinary {sBinary :: [Int]}
 instance Show SBinary where
   show sb =
     let listStr = show $sBinary sb
-        decStr = show $fromEnum' $ sBinary sb
+        decStr = show $fromEnum sb
         baseStr = "02"
         inBaseStr = decStr
         fullBaseStr = baseStr ++ "_"++inBaseStr
     in "(S="++listStr++"|D="++decStr++"|B="++fullBaseStr++")"
+instance Enum SBinary where
+  toEnum d = SBinary $ toEnum' d
+  fromEnum sb = fromEnum' $ sBinary sb
