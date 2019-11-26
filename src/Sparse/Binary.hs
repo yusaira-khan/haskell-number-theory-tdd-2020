@@ -16,17 +16,23 @@ toEnum' num =
 
 fromEnum' :: [Int] -> Int
 fromEnum' = sum
+show' :: (Enum a)=>(a->[Int]) -> (a->String) -> a -> String
+show' sparseFun binaryReprFun sb =
+ let listStr = show $sparseFun sb
+     decStr = show $fromEnum sb
+     fullBaseStr = binaryReprFun sb
+ in "(S="++listStr++"|D="++decStr++"|B="++fullBaseStr++")"
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 
+showBinary :: SBinary -> String
+showBinary sb =
+  let baseStr = "2"
+      inBaseStr = show $fromEnum sb
+  in baseStr++"_"++inBaseStr
+
 instance Show SBinary where
-  show sb =
-    let listStr = show $sBinary sb
-        decStr = show $fromEnum sb
-        baseStr = "2"
-        inBaseStr = decStr
-        fullBaseStr = baseStr ++ "_"++inBaseStr
-    in "(S="++listStr++"|D="++decStr++"|B="++fullBaseStr++")"
+  show = show' sBinary showBinary
 instance Enum SBinary where
   toEnum d = SBinary $ toEnum' d
   fromEnum sb = fromEnum' $ sBinary sb
