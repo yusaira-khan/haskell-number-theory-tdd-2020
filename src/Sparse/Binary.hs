@@ -25,18 +25,22 @@ show' sparseFun binaryReprFun sb =
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 
-binaryRepr :: [Int] -> String
-binaryRepr [] = "0"
-binaryRepr [1]= "1"
-binaryRepr (num:rest)=if (num>=2) then"1"++(binaryRepr rest) else undefined
---todo: 2 ideas:
--- with reverse, have a left number, when 4, left =3, decrement left with each digit added
---without reverse, add number least to most significant, but have a pow2 multiplier. if pow2 present then add 1,else 0
+binaryRepr :: Int -> [Int] -> String
+binaryRepr 1 [] = "0"
+binaryRepr _ [] = ""
+binaryRepr pow2 full@(num:rest )=
+  let
+    bitPresent = num==pow2
+    leastSigBit = if bitPresent then "1" else "0"
+    higherBitList = if bitPresent then rest else full
+    higherBits = (binaryRepr (pow2*2) higherBitList)
+  in higherBits++leastSigBit
+
 showBinaryWBase :: SBinary -> String
 showBinaryWBase sb =
   let baseStr = "2"
-      sl = reverse $ sBinary sb
-  in baseStr++"_"++ (binaryRepr sl)
+      sl = sBinary sb
+  in baseStr++"_"++ (binaryRepr 1 sl)
 
 instance Show SBinary where
   show = show' sBinary showBinaryWBase
