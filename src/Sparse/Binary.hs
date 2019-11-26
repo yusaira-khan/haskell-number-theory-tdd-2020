@@ -23,7 +23,7 @@ instance Show SBinary where
   show sb =
     let listStr = show $sBinary sb
         decStr = show $fromEnum sb
-        baseStr = "02"
+        baseStr = "2"
         inBaseStr = decStr
         fullBaseStr = baseStr ++ "_"++inBaseStr
     in "(S="++listStr++"|D="++decStr++"|B="++fullBaseStr++")"

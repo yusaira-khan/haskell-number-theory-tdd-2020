@@ -22,8 +22,8 @@ toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
 
 stringtest :: Spec
 stringtest = describe "Sparse Binary String" $ do
-  it "Zero" $ (show(SB.SBinary(SB.toEnum' 0))) `shouldBe` "(S=[]|D=0|B=02_0)"
-  it "One" $ (show(SB.SBinary(SB.toEnum' 1))) `shouldBe` "(S=[1]|D=1|B=02_1)"
+  it "Zero" $ (show(SB.SBinary(SB.toEnum' 0))) `shouldBe` "(S=[]|D=0|B=2_0)"
+  it "One" $ (show(SB.SBinary(SB.toEnum' 1))) `shouldBe` "(S=[1]|D=1|B=2_1)"
 
 
 spec = do
