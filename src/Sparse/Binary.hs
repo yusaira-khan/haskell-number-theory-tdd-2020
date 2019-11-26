@@ -29,8 +29,12 @@ showBinary :: SBinary -> String
 showBinary sb =
   let baseStr = "2"
       sl = sBinary sb
-      num = if null sl then 0 else head sl
-      inBaseStr = show num
+      num = if null sl
+            then 0
+            else head sl
+      inBaseStr = if num ==2
+                  then "10"
+                  else show num
   in baseStr++"_"++inBaseStr
 
 instance Show SBinary where
