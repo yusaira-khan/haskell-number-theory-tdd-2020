@@ -26,6 +26,7 @@ stringtest :: Spec
 stringtest = describe "Sparse Binary String" $ do
   checkStrRepr ("Zero",0,"(S=[]|D=0|B=2_0)")
   checkStrRepr ("One",1,"(S=[1]|D=1|B=2_1)")
+  checkStrRepr ("Two",2,"(S=[2]|D=2|B=2_10)")
 
 
 spec = do
