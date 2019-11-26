@@ -25,20 +25,20 @@ show' sparseFun binaryReprFun sb =
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 
-showBinary :: SBinary -> String
-showBinary sb =
+binaryRepr :: [Int] -> String
+binaryRepr [] = "0"
+binaryRepr (num:rest)=
+       if num ==2
+       then "10"
+       else show num
+showBinaryWBase :: SBinary -> String
+showBinaryWBase sb =
   let baseStr = "2"
       sl = sBinary sb
-      num = if null sl
-            then 0
-            else head sl
-      inBaseStr = if num ==2
-                  then "10"
-                  else show num
-  in baseStr++"_"++inBaseStr
+  in baseStr++"_"++ (binaryRepr sl)
 
 instance Show SBinary where
-  show = show' sBinary showBinary
+  show = show' sBinary showBinaryWBase
 instance Enum SBinary where
   toEnum d = SBinary $ toEnum' d
   fromEnum sb = fromEnum' $ sBinary sb
