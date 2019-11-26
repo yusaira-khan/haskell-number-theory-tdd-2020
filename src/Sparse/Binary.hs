@@ -28,7 +28,9 @@ newtype SBinary = SBinary {sBinary :: [Int]}
 showBinary :: SBinary -> String
 showBinary sb =
   let baseStr = "2"
-      inBaseStr = show $fromEnum sb
+      sl = sBinary sb
+      num = if null sl then 0 else head sl
+      inBaseStr = show num
   in baseStr++"_"++inBaseStr
 
 instance Show SBinary where
