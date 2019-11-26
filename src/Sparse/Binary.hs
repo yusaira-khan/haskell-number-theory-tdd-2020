@@ -32,7 +32,7 @@ binaryRepr (num:rest)=if (num==2) then"1"++(binaryRepr rest) else undefined
 showBinaryWBase :: SBinary -> String
 showBinaryWBase sb =
   let baseStr = "2"
-      sl = sBinary sb
+      sl = reverse $ sBinary sb
   in baseStr++"_"++ (binaryRepr sl)
 
 instance Show SBinary where
