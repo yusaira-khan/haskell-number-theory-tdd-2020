@@ -19,11 +19,13 @@ toEnumFun = H.testToEnum SB.toEnum'
 
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
-
+checkStrRepr ::(String,Int,String) -> SpecWith ()
+checkStrRepr (name,num,rep) =
+  it name $ (show(SB.SBinary(SB.toEnum' num))) `shouldBe` rep
 stringtest :: Spec
 stringtest = describe "Sparse Binary String" $ do
-  it "Zero" $ (show(SB.SBinary(SB.toEnum' 0))) `shouldBe` "(S=[]|D=0|B=2_0)"
-  it "One" $ (show(SB.SBinary(SB.toEnum' 1))) `shouldBe` "(S=[1]|D=1|B=2_1)"
+  checkStrRepr ("Zero",0,"(S=[]|D=0|B=2_0)")
+  checkStrRepr ("One",1,"(S=[1]|D=1|B=2_1)")
 
 
 spec = do
