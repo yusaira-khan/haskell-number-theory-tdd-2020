@@ -28,9 +28,9 @@ newtype SBinary = SBinary {sBinary :: [Int]}
 binaryRepr :: [Int] -> String
 binaryRepr [] = "0"
 binaryRepr (num:rest)=
-       if num ==2
-       then "10"
-       else show num
+       if num ==1 
+       then "1"
+       else "10"
 showBinaryWBase :: SBinary -> String
 showBinaryWBase sb =
   let baseStr = "2"
