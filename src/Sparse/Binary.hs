@@ -28,7 +28,10 @@ newtype SBinary = SBinary {sBinary :: [Int]}
 binaryRepr :: [Int] -> String
 binaryRepr [] = "0"
 binaryRepr [1]= "1"
-binaryRepr (num:rest)=if (num==2) then"1"++(binaryRepr rest) else undefined
+binaryRepr (num:rest)=if (num>=2) then"1"++(binaryRepr rest) else undefined
+--todo: 2 ideas:
+-- with reverse, have a left number, when 4, left =3, decrement left with each digit added
+--without reverse, add number least to most significant, but have a pow2 multiplier. if pow2 present then add 1,else 0
 showBinaryWBase :: SBinary -> String
 showBinaryWBase sb =
   let baseStr = "2"
