@@ -16,25 +16,8 @@ toEnum' num =
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 
-showBinListAsBase :: Int -> [Int] -> String
-showBinListAsBase 1 [] = "0"
-showBinListAsBase _ [] = ""
-showBinListAsBase pow2 full@(num:rest )=
-  let
-    bitPresent = num==pow2
-    leastSigBit = if bitPresent then "1" else "0"
-    higherBitList = if bitPresent then rest else full
-    higherBits = (showBinListAsBase (pow2*2) higherBitList)
-  in higherBits++leastSigBit
-
-showBinaryWBase :: SBinary -> String
-showBinaryWBase sb =
-  let baseStr = "2"
-      sl = sBinary sb
-  in baseStr++"_"++ (showBinListAsBase 1 sl)
-
 instance Show SBinary where
-  show = H.show' sBinary showBinaryWBase
+  show = H.show' sBinary (H.showReprWBase 2.sBinary)
 instance Enum SBinary where
   toEnum d = SBinary $ toEnum' d
   fromEnum sb = H.fromEnum' $ sBinary sb
