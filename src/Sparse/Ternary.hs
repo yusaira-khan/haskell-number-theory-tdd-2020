@@ -14,10 +14,16 @@ toEnum' num =
   in if (num > pow3Mul)
     then toEnum' rest++[pow3Mul]
     else [num] -- num == pow3Mul
-
+showTernary :: [Int]->String
+showTernary _ = "0"
+showTernaryWBase :: [Int] -> String
+showTernaryWBase ter =
+  let base = "3"
+      num = showTernary ter
+      in base++"_"++num
 newtype STernary = STernary {sTernary :: [Int]}
 instance Show STernary where
-  show _ = "" --H.show' sTernary
+  show = H.show' sTernary (showTernaryWBase.sTernary)
 instance Enum STernary where
   toEnum d = STernary $ toEnum' d
-  fromEnum sb = H.fromEnum' $ sTernary sb
+  fromEnum st = H.fromEnum' $ sTernary st
