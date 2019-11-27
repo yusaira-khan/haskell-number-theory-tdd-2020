@@ -15,6 +15,19 @@ show' sparseFun baseReprFun sb =
      fullBaseStr = baseReprFun sb
  in "(S="++listStr++"|D="++decStr++"|B="++fullBaseStr++")"
 
+showDigit :: Int -> String
+showDigit num
+  | 0<= num && num <= 9 = show num
+  | 10 <= num && num <= 35 =
+    let
+      diff = num - 10
+      startChar = fromEnum 'a'
+      numChar = startChar + diff
+      char  = toEnum numChar :: Char
+    in [char]
+  | otherwise = undefined
+
+
 showReprInBase :: Int -> [Int]->String
 showReprInBase base =
   let
@@ -27,7 +40,7 @@ showReprInBase base =
           if num >= nextPow
           then 0
           else num `quot` pow
-        curDigitStr = show curDigit
+        curDigitStr = showDigit curDigit
         higherDigits =
           if num >= nextPow
           then full
