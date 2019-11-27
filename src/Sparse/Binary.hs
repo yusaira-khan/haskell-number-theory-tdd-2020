@@ -25,22 +25,22 @@ show' sparseFun binaryReprFun sb =
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 
-binaryRepr :: Int -> [Int] -> String
-binaryRepr 1 [] = "0"
-binaryRepr _ [] = ""
-binaryRepr pow2 full@(num:rest )=
+showBinListAsBase :: Int -> [Int] -> String
+showBinListAsBase 1 [] = "0"
+showBinListAsBase _ [] = ""
+showBinListAsBase pow2 full@(num:rest )=
   let
     bitPresent = num==pow2
     leastSigBit = if bitPresent then "1" else "0"
     higherBitList = if bitPresent then rest else full
-    higherBits = (binaryRepr (pow2*2) higherBitList)
+    higherBits = (showBinListAsBase (pow2*2) higherBitList)
   in higherBits++leastSigBit
 
 showBinaryWBase :: SBinary -> String
 showBinaryWBase sb =
   let baseStr = "2"
       sl = sBinary sb
-  in baseStr++"_"++ (binaryRepr 1 sl)
+  in baseStr++"_"++ (showBinListAsBase 1 sl)
 
 instance Show SBinary where
   show = show' sBinary showBinaryWBase

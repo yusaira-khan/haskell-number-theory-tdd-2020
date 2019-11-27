@@ -1,4 +1,4 @@
-module Helper(testToEnum,bindAllList,testGen) where
+module Helper(testToEnum,bindAllList,testGen,checkStrReprFun) where
 import Test.Hspec
 
 checkRepr ::(Int-> [Int])->(Int,[Int]) -> Expectation
@@ -11,3 +11,7 @@ bindAllList fun (a:[]) = fun a
 bindAllList fun (a:as) = fun a >>  bindAllList fun as
 testGen :: (a->SpecWith()) -> String -> [a] -> Spec
 testGen fun name list = describe name $ bindAllList fun list
+
+checkStrReprFun ::(Int->String)->(String,Int,String) -> SpecWith ()
+checkStrReprFun fun (name,num,rep) =
+  it name $ (fun num) `shouldBe` rep
