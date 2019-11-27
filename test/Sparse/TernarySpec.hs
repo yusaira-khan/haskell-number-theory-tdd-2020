@@ -23,5 +23,11 @@ toEnumFun = H.testToEnum ST.toEnum'
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Ternary ToEnum" testList
 
+checkStr ::(String,Int,String) -> SpecWith ()
+checkStr  = H.checkStrReprFun (show . ST.STernary . ST.toEnum')
+stringtest :: Spec
+stringtest = describe "Sparse Binary String" $ do
+  checkStr("",0,"")
 spec = do
   toEnum''
+  stringtest

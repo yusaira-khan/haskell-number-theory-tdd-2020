@@ -1,4 +1,4 @@
-module Sparse.Ternary(toEnum') where
+module Sparse.Ternary(toEnum',STernary(STernary)) where
 import Sparse.Helper as H
 
 largestPow3SoFar :: Int -> Int
@@ -14,3 +14,10 @@ toEnum' num =
   in if (num > pow3Mul)
     then toEnum' rest++[pow3Mul]
     else [num] -- num == pow3Mul
+
+newtype STernary = STernary {sTernary :: [Int]}
+instance Show STernary where
+  show _ = "" --H.show' sTernary
+instance Enum STernary where
+  toEnum d = STernary $ toEnum' d
+  fromEnum sb = H.fromEnum' $ sTernary sb
