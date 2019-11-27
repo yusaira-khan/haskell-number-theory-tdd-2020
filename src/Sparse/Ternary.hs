@@ -16,7 +16,7 @@ toEnum' num =
     else [num] -- num == pow3Mul
 showTernary :: [Int]->String
 showTernary [] = "0"
-showTernary [1] = "1"
+showTernary [n] = show n
 showTernaryWBase :: [Int] -> String
 showTernaryWBase ter =
   let base = "3"

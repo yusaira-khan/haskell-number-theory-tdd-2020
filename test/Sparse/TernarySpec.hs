@@ -29,6 +29,8 @@ stringtest :: Spec
 stringtest = describe "Sparse Ternary String" $ do
   checkStr("Zero",0,"(S=[]|D=0|B=3_0)")
   checkStr("One",1,"(S=[1]|D=1|B=3_1)")
+  checkStr("Two",2,"(S=[2]|D=2|B=3_2)")
+  checkStr("Three",3,"(S=[3]|D=3|B=3_10)")
 spec = do
   toEnum''
   stringtest
