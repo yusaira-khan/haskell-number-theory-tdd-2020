@@ -15,7 +15,8 @@ toEnum' num =
     then toEnum' rest++[pow3Mul]
     else [num] -- num == pow3Mul
 showTernary :: [Int]->String
-showTernary _ = "0"
+showTernary [] = "0"
+showTernary [1] = "1"
 showTernaryWBase :: [Int] -> String
 showTernaryWBase ter =
   let base = "3"
