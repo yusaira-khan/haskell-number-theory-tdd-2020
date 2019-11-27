@@ -1,4 +1,4 @@
-module Sparse.Helper(largestPowBaseBetween,fromEnum',show',showReprWBase) where
+module Sparse.Helper(largestPowBaseBetween,fromEnum',show',showReprWBase,toEnumInBase) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -55,3 +55,18 @@ showReprWBase base numlist =
   let baseStr =  show base
       num = showReprInBase base numlist
       in baseStr++"_"++num
+
+toEnumInBase :: Int -> Int -> [Int]
+toEnumInBase base =
+  let
+    largestPowSoFar = largestPowBaseBetween base 1
+    toEnum' 0 = []
+    toEnum' num =
+      let pow =  largestPowSoFar num
+          digit = (num `quot` pow)
+          powMul = digit * pow
+          rest = num `rem` pow
+      in if (num > powMul)
+        then toEnum' rest++[powMul]
+        else [powMul]
+  in toEnum'
