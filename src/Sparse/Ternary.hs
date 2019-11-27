@@ -15,17 +15,23 @@ toEnum' num =
     then toEnum' rest++[pow3Mul]
     else [num] -- num == pow3Mul
 
-
-showTernary :: [Int]->String
-showTernary [] = "0"
-showTernary[3] = "10"
-showTernary [n] = show n
+showTernary :: Int -> [Int]->String
+showTernary 1 [] = "0"
+showTernary _ [] = ""
+showTernary pow3 full@(num:rest) =
+  let
+    nextPow3 = pow3 *3
+    curDigit = if num >= nextPow3 then 0 else num `quot` pow3
+    curDigitStr = show curDigit
+    higherDigits = if num >= nextPow3 then full else rest
+    higherDigitStr = showTernary nextPow3 higherDigits
+  in higherDigitStr ++ curDigitStr
 
 
 showTernaryWBase :: [Int] -> String
 showTernaryWBase ter =
   let base = "3"
-      num = showTernary ter
+      num = showTernary 1 ter
       in base++"_"++num
 newtype STernary = STernary {sTernary :: [Int]}
 instance Show STernary where
