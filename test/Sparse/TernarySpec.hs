@@ -28,6 +28,7 @@ checkStr  = H.checkStrReprFun (show . ST.STernary . ST.toEnum')
 stringtest :: Spec
 stringtest = describe "Sparse Ternary String" $ do
   checkStr("Zero",0,"(S=[]|D=0|B=3_0)")
+  checkStr("One",1,"(S=[1]|D=1|B=3_1)")
 spec = do
   toEnum''
   stringtest
