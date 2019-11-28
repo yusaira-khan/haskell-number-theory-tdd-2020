@@ -40,7 +40,14 @@ eqtest = describe "Sparse Eq" $ do
   checkEq ("OneTwo",1,2,False)
   checkEq ("OneThree",1,3,False)
 
+checkSucc ::(String,Int) -> SpecWith ()
+checkSucc (name,num)= it name $ (succ (sb num)) `shouldBe` (sb (succ num))
+succtest :: Spec
+succtest = describe "Binary Succ" $ do
+  checkSucc ("Zero",0)
+
 spec = do
   toEnum''
   stringtest
   eqtest
+  succtest
