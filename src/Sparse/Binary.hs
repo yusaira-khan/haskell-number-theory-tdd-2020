@@ -10,7 +10,7 @@ eqlist :: [Int] -> [Int] -> Bool
 eqlist [] [] = True
 eqlist [] _ = False
 eqlist _ [] = False
-eqlist l1 l2 = True
+eqlist (n1:r1) (n2:r2) = n1 == n2 && eqlist r1 r2
 
 
 newtype SBinary = SBinary {sBinary :: [Int]}
