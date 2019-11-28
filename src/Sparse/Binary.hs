@@ -13,7 +13,9 @@ eqlist _ [] = False
 eqlist (n1:r1) (n2:r2) = n1 == n2 && eqlist r1 r2
 
 succlist :: [Int] -> [Int]
-succlist l = [1]
+succlist [] = [1]
+succlist (1:r) = 2:r
+succlist l = 1:l
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 instance Show SBinary where

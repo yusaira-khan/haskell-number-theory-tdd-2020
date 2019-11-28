@@ -45,6 +45,8 @@ checkSucc (name,num)= it name $ (succ (sb num)) `shouldBe` (sb (succ num))
 succtest :: Spec
 succtest = describe "Binary Succ" $ do
   checkSucc ("Zero",0)
+  checkSucc ("One",1)
+  checkSucc ("Two",2)
 
 spec = do
   toEnum''
