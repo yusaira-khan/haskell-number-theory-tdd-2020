@@ -12,6 +12,8 @@ eqlist [] _ = False
 eqlist _ [] = False
 eqlist (n1:r1) (n2:r2) = n1 == n2 && eqlist r1 r2
 
+succlist :: [Int] -> [Int]
+succlist l = [1]
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 instance Show SBinary where
@@ -19,7 +21,7 @@ instance Show SBinary where
 instance Enum SBinary where
   toEnum d = SBinary $ toEnum' d
   fromEnum sb = H.fromEnum' $ sBinary sb
-  succ sb = undefined
+  succ sb = SBinary $ succlist $ sBinary sb
 
 instance Eq SBinary where
   (==) sb1 sb2 = eqlist (sBinary sb1) (sBinary sb2)
