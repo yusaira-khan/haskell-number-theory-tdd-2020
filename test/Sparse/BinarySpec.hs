@@ -33,7 +33,8 @@ checkEq ::(String,Int,Int,Bool) -> SpecWith ()
 checkEq (name,num1,num2,truth) = it name $ ((sb num1) == (sb num2)) `shouldBe` truth
 eqtest :: Spec
 eqtest = describe "Sparse Eq" $ do
-  checkEq ("Zero",0,0,True)
+  checkEq ("ZeroZero",0,0,True)
+  checkEq ("ZeroOne",0,1,False)
 
 spec = do
   toEnum''
