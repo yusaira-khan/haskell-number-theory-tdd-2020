@@ -12,3 +12,5 @@ instance Show SBinary where
 instance Enum SBinary where
   toEnum d = SBinary $ toEnum' d
   fromEnum sb = H.fromEnum' $ sBinary sb
+instance Eq SBinary where
+  (==) sb1 sb2 = undefined

@@ -28,8 +28,14 @@ stringtest = describe "Sparse Binary String" $ do
   checkStr ("Two",2,"(S=[2]|D=2|B=2_10)")
   checkStr ("Three",3,"(S=[1,2]|D=3|B=2_11)")
   checkStr ("Four",4,"(S=[4]|D=4|B=2_100)")
-
+sb n = toEnum n :: SB.SBinary
+checkEq ::(String,Int,Int,Bool) -> SpecWith ()
+checkEq (name,num1,num2,truth) = it name $ ((sb num1) == (sb num2)) `shouldBe` truth
+eqtest :: Spec
+eqtest = describe "Sparse Eq" $ do
+  checkEq ("Zero",0,0,True)
 
 spec = do
   toEnum''
   stringtest
+  eqtest
