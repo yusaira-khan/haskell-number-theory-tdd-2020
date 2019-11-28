@@ -9,6 +9,7 @@ toEnum' = H.toEnumInBase 2
 eqlist :: [Int] -> [Int] -> Bool
 eqlist [] [] = True
 eqlist [] _ = False
+eqlist _ [] = False
 
 
 newtype SBinary = SBinary {sBinary :: [Int]}
