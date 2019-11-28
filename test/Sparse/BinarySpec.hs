@@ -36,6 +36,7 @@ eqtest = describe "Sparse Eq" $ do
   checkEq ("ZeroZero",0,0,True)
   checkEq ("ZeroOne",0,1,False)
   checkEq ("OneZero",1,0,False)
+  checkEq ("OneOne",1,1,True)
 
 spec = do
   toEnum''
