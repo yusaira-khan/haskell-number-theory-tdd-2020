@@ -28,8 +28,14 @@ stringtest = describe "Sparse Binary String" $ do
   checkStr ("Two",2,"(S=[2]|D=2|B=2_10)")
   checkStr ("Three",3,"(S=[1,2]|D=3|B=2_11)")
   checkStr ("Four",4,"(S=[4]|D=4|B=2_100)")
-
+sb n = toEnum n :: SB.SBinary
+checkSucc ::(String,Int) -> SpecWith ()
+checkSucc (name,num)= it name $ (succ (sb num)) `shouldBe` (sb (succ num))
+succtest :: Spec
+succtest = describe "Binary Succ" $ do
+  checkSucc ("Zero",0)
 
 spec = do
   toEnum''
   stringtest
+  succtest
