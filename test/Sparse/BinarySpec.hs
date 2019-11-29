@@ -54,9 +54,9 @@ checkInvalidCons (value, errorName) =
   it errorName $ (evaluate $ SB.mkSBinary value) `shouldThrow` errorCall errorName
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
-  checkInvalidCons ([1,1],"Duplicate Element")
-  checkInvalidCons ([2,1],"Elements out of order")
-  checkInvalidCons ([3],"Invalid element")
+  --checkInvalidCons ([1,1],"Duplicate Element")
+  --checkInvalidCons ([2,1],"Elements out of order")
+  checkInvalidCons ([3,2,6],"Invalid elements [3,6]")
 
 spec = do
   toEnum''

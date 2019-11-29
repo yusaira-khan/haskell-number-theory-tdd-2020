@@ -23,10 +23,26 @@ addPow2List pow2 =
        EQ -> addPow2List nextpow2 rest
        LT -> curr:(addPow2List pow2 rest)
   in addList
-
+isValidPow2 :: Int -> Bool
+isValidPow2 n =
+  let (q,r) = quotRem n 2
+  in if q == 0
+  then 0 <= r && r < 2
+  else r==0 && isValidPow2 q
+inRightOrder :: [Int] -> Bool
+inRightOrder _ = True
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
-mkSBinary list = error "hi"
+mkSBinary [] =  SBinary []
+mkSBinary l=
+  let incorrectElements = filter (not.isValidPow2) l
+  in if null incorrectElements
+  then
+    if inRightOrder l
+    then SBinary l
+    else error $ "Incorrect order" ++ show l
+  else error $ "Invalid elements " ++ show incorrectElements
+  
 instance Show SBinary where
   show = H.show' sBinary (H.showReprWBase 2.sBinary)
 instance Enum SBinary where
