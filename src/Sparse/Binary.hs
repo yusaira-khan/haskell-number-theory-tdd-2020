@@ -29,8 +29,9 @@ isValidPow2 n =
   in if q == 0
   then 0 <= r && r < 2
   else r==0 && isValidPow2 q
+asBigAs (ok,pow2) curr = 
 inRightOrder :: [Int] -> Bool
-inRightOrder _ = True
+inRightOrder  = True
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []

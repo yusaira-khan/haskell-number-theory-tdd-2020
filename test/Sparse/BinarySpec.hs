@@ -52,6 +52,7 @@ succtest = describe "Binary Succ" $ do
 checkInvalidCons :: ([Int],String) -> SpecWith ()
 checkInvalidCons (value, errorName) =
   it errorName $ (evaluate $ SB.mkSBinary value) `shouldThrow` errorCall errorName
+asBigAsTest  :: Spec
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
   --checkInvalidCons ([1,1],"Duplicate Element")
