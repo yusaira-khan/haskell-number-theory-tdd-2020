@@ -2,6 +2,7 @@ module Sparse.BinarySpec(spec) where
 import Test.Hspec
 import Sparse.Binary as SB
 import Helper as H
+import Control.Exception(evaluate)
 
 enumTestList = [
  ("One" , 1 , [1]),
@@ -20,7 +21,7 @@ toEnumFun = H.testToEnum SB.toEnum'
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
 checkStr ::(String,Int,String) -> SpecWith ()
-checkStr  = H.checkStrReprFun (show . SB.SBinary . SB.toEnum')
+checkStr  = H.checkStrReprFun (show . SB.mkSBinary . SB.toEnum')
 stringtest :: Spec
 stringtest = describe "Sparse Binary String" $ do
   checkStr ("Zero",0,"(S=[]|D=0|B=2_0)")
@@ -48,9 +49,18 @@ succtest = describe "Binary Succ" $ do
   checkSucc ("One",1)
   checkSucc ("Two",2)
   checkSucc ("Three",3)
+checkInvalidCons :: ([Int],String) -> SpecWith ()
+checkInvalidCons (value, errorName) =
+  it errorName $ (evaluate $ SB.mkSBinary value) `shouldThrow` errorCall errorName
+smartConsTest ::Spec
+smartConsTest = describe "Smart constructor test" $ do
+  checkInvalidCons ([1,1],"Duplicate Element")
+  checkInvalidCons ([2,1],"Elements out of order")
+  checkInvalidCons ([3],"Invalid element")
 
 spec = do
   toEnum''
   stringtest
   eqtest
   succtest
+  smartConsTest

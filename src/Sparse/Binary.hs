@@ -1,5 +1,5 @@
 --{-# LANGUAGE InstanceSigs #-}
-module Sparse.Binary(SBinary(SBinary),toEnum') where
+module Sparse.Binary(SBinary,mkSBinary,toEnum') where
 import Sparse.Helper as H
 
 toEnum' :: Int -> [Int]
@@ -25,6 +25,8 @@ addPow2List pow2 =
   in addList
 
 newtype SBinary = SBinary {sBinary :: [Int]}
+mkSBinary :: [Int] -> SBinary
+mkSBinary list = error "hi"
 instance Show SBinary where
   show = H.show' sBinary (H.showReprWBase 2.sBinary)
 instance Enum SBinary where
