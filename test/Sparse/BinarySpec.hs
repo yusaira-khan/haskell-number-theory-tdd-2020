@@ -47,6 +47,7 @@ succtest = describe "Binary Succ" $ do
   checkSucc ("Zero",0)
   checkSucc ("One",1)
   checkSucc ("Two",2)
+  checkSucc ("Three",3)
 
 spec = do
   toEnum''
