@@ -31,8 +31,9 @@ isValidPow2 n =
   else r==0 && isValidPow2 q
 asBigAs  :: (Bool,Int) -> Int -> (Bool,Int)
 asBigAs (ok,pow2) curr=
-  let newpow2 = curr
-  in  (ok,newpow2)
+  let newok = ok && curr > pow2
+      newpow2 = if newok then curr else pow2
+  in  (newok,newpow2)
 
 inRightOrder :: [Int] -> Bool
 inRightOrder  _= True
