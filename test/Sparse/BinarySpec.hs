@@ -52,7 +52,11 @@ succtest = describe "Binary Succ" $ do
 checkInvalidCons :: ([Int],String) -> SpecWith ()
 checkInvalidCons (value, errorName) =
   it errorName $ (evaluate $ SB.mkSBinary value) `shouldThrow` errorCall errorName
+checkAsBig :: (String,(Bool,Int),Int,(Bool,Int)) -> SpecWith ()
+checkAsBig (s,t1,n,t2)= it s $ (SB.asBigAs t1 n) `shouldBe` t2
 asBigAsTest  :: Spec
+asBigAsTest  = describe "as big as" $ do
+  checkAsBig ("simplest",(True, 1),1,(True,1))
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
   --checkInvalidCons ([1,1],"Duplicate Element")
@@ -65,3 +69,4 @@ spec = do
   eqtest
   succtest
   smartConsTest
+  asBigAsTest

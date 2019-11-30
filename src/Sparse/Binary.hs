@@ -1,5 +1,5 @@
 --{-# LANGUAGE InstanceSigs #-}
-module Sparse.Binary(SBinary,mkSBinary,toEnum') where
+module Sparse.Binary(SBinary,asBigAs,mkSBinary,toEnum') where
 import Sparse.Helper as H
 
 toEnum' :: Int -> [Int]
@@ -29,9 +29,11 @@ isValidPow2 n =
   in if q == 0
   then 0 <= r && r < 2
   else r==0 && isValidPow2 q
-asBigAs (ok,pow2) curr = 
+asBigAs  :: (Bool,Int) -> Int -> (Bool,Int)
+asBigAs (ok,pow2) curr= undefined
+
 inRightOrder :: [Int] -> Bool
-inRightOrder  = True
+inRightOrder  _= True
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []
