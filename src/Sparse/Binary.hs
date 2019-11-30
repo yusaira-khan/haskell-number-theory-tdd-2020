@@ -30,7 +30,9 @@ isValidPow2 n =
   then 0 <= r && r < 2
   else r==0 && isValidPow2 q
 asBigAs  :: (Bool,Int) -> Int -> (Bool,Int)
-asBigAs (ok,pow2) curr= (ok,1)
+asBigAs (ok,pow2) curr=
+  let newpow2 = curr
+  in  (ok,newpow2)
 
 inRightOrder :: [Int] -> Bool
 inRightOrder  _= True
