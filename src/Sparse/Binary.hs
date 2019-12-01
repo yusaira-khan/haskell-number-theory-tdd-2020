@@ -38,10 +38,18 @@ asBigAs (ok,pow2) curr=
 inRightOrder :: [Int] -> Bool
 inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
 
-pred2List :: [Int] -> [Int]
-pred2List [] = undefined 
-pred2List (1:l) = l
-pred2List (n:l) = 1:l
+removePowFromList :: Int -> [Int] -> [Int]
+removePowFromList pow2 =
+  let
+    nextPow2 = pow2*2
+    pred2List :: [Int] -> [Int]
+    pred2List [] = []
+    pred2List full@(curr:rest) =
+      case compare curr pow2 of
+        EQ -> rest
+        GT -> pow2:removePowFromList nextPow2 full
+        LT ->  undefined
+  in pred2List
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []
@@ -57,10 +65,10 @@ mkSBinary l=
 instance Show SBinary where
   show = H.show' sBinary (H.showReprWBase 2.sBinary)
 instance Enum SBinary where
-  toEnum d = SBinary $ toEnum' d
+  toEnum d = mkSBinary $ toEnum' d
   fromEnum sb = H.fromEnum' $ sBinary sb
-  succ sb = SBinary $ addPow2List 1 $ sBinary sb
-  pred sb = SBinary $ pred2List $ sBinary sb
+  succ sb = mkSBinary $ addPow2List 1 $ sBinary sb
+  pred sb = mkSBinary $ removePowFromList 1 $ sBinary sb
 
 instance Eq SBinary where
   (==) sb1 sb2 = eqlist (sBinary sb1) (sBinary sb2)

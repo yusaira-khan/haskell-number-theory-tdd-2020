@@ -74,7 +74,7 @@ predTest = describe "Binary Pred test"  $ do
   checkPred ("One",1)
   checkPred ("Two",2)
   checkPred ("Three",3)
-  checkPred ("Two",2)
+  checkPred ("Four",4)
 spec = do
   toEnum''
   stringtest
