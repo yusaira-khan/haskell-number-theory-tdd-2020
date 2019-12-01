@@ -70,8 +70,11 @@ smartConsTest = describe "Smart constructor test" $ do
 checkPred ::(String,Int) -> SpecWith ()
 checkPred (name,num)= it name $ (pred (sb num)) `shouldBe` (sb (pred num))
 predTest :: Spec
-predTest = describe "Binary Spec test"  $ do
+predTest = describe "Binary Pred test"  $ do
   checkPred ("One",1)
+  checkPred ("Two",2)
+  checkPred ("Three",3)
+  checkPred ("Two",2)
 spec = do
   toEnum''
   stringtest

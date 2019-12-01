@@ -39,7 +39,9 @@ inRightOrder :: [Int] -> Bool
 inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
 
 pred2List :: [Int] -> [Int]
+pred2List [] = undefined 
 pred2List (1:l) = l
+pred2List (n:l) = 1:l
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []
