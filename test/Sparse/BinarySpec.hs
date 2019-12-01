@@ -61,7 +61,7 @@ asBigAsTest  = describe "as big as" $ do
   checkAsBig ("Less2",(True, 1),2,(True,2))
   checkAsBig ("Less4",(True, 1),4,(True,4))
   checkAsBig ("Equal",(True, 1),1,(False,1))
-  -- checkAsBig ("Greater",(True, 2),1,(False,1))
+  checkAsBig ("Greater",(True, 2),1,(False,2))
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
   --checkInvalidCons ([1,1],"Duplicate Element")
