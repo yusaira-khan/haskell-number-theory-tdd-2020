@@ -1,5 +1,5 @@
 --{-# LANGUAGE InstanceSigs #-}
-module Sparse.Binary(SBinary,asBigAs,mkSBinary,toEnum') where
+module Sparse.Binary(SBinary,mkSBinary,toEnum') where
 import Sparse.Helper as H
 
 toEnum' :: Int -> [Int]
@@ -16,20 +16,6 @@ addPow2List pow2 =
        EQ -> addPow2List nextpow2 rest
        LT -> curr:(addPow2List pow2 rest)
   in addList
-isValidPow2 :: Int -> Bool
-isValidPow2 n =
-  let (q,r) = quotRem n 2
-  in if q == 0
-  then 0 <= r && r < 2
-  else r==0 && isValidPow2 q
-asBigAs  :: (Bool,Int) -> Int -> (Bool,Int)
-asBigAs (ok,pow2) curr=
-  let newok = ok && curr > pow2
-      newpow2 = if newok then curr else pow2
-  in  (newok,newpow2)
-
-inRightOrder :: [Int] -> Bool
-inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
 
 removePowFromList :: Int -> [Int] -> [Int]
 removePowFromList pow2 =
@@ -43,6 +29,7 @@ removePowFromList pow2 =
         GT -> pow2:removePowFromList nextPow2 full
         LT ->  undefined
   in pred2List
+isValidPow2 = H.isValidPowBase 2
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []
@@ -50,7 +37,7 @@ mkSBinary l=
   let incorrectElements = filter (not.isValidPow2) l
   in if null incorrectElements
   then
-    if inRightOrder l
+    if H.inRightOrder l
     then SBinary l
     else error $ "Incorrect order " ++ show l
   else error $ "Invalid elements " ++ show incorrectElements

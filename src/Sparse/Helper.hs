@@ -1,4 +1,12 @@
-module Sparse.Helper(largestPowBaseBetween,fromEnum',show',showReprWBase,toEnumInBase,isEqualList) where
+module Sparse.Helper(
+  largestPowBaseBetween,
+  fromEnum',
+  show',
+  showReprWBase,
+  toEnumInBase,
+  isEqualList,
+  isValidPowBase,
+  inRightOrder) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -76,3 +84,19 @@ isEqualList [] [] = True
 isEqualList [] _ = False
 isEqualList _ [] = False
 isEqualList (n1:r1) (n2:r2) = n1 == n2 && isEqualList r1 r2
+
+
+isValidPowBase :: Int -> Int -> Bool
+isValidPowBase base =let isValid num = let (q,r) = quotRem num base
+                                       in if q == 0
+                                       then 0 <= r && r < base
+                                       else r==0 && isValid q
+   in isValid
+asBigAs  :: (Bool,Int) -> Int -> (Bool,Int)
+asBigAs (ok,pow2) curr=
+  let newok = ok && curr > pow2
+      newpow2 = if newok then curr else pow2
+  in  (newok,newpow2)
+
+inRightOrder :: [Int] -> Bool
+inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
