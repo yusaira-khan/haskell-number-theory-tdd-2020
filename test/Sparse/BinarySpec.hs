@@ -64,8 +64,8 @@ asBigAsTest  = describe "as big as" $ do
   checkAsBig ("Greater",(True, 2),1,(False,2))
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
-  --checkInvalidCons ([1,1],"Duplicate Element")
-  --checkInvalidCons ([2,1],"Elements out of order")
+  checkInvalidCons ([1,1],"Incorrect order [1,1]")
+  checkInvalidCons ([2,1],"Incorrect order [2,1]")
   checkInvalidCons ([3,2,6],"Invalid elements [3,6]")
 
 spec = do

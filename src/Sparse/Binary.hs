@@ -36,7 +36,9 @@ asBigAs (ok,pow2) curr=
   in  (newok,newpow2)
 
 inRightOrder :: [Int] -> Bool
-inRightOrder  _= True
+inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
+
+
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []
@@ -46,9 +48,9 @@ mkSBinary l=
   then
     if inRightOrder l
     then SBinary l
-    else error $ "Incorrect order" ++ show l
+    else error $ "Incorrect order " ++ show l
   else error $ "Invalid elements " ++ show incorrectElements
-  
+
 instance Show SBinary where
   show = H.show' sBinary (H.showReprWBase 2.sBinary)
 instance Enum SBinary where
