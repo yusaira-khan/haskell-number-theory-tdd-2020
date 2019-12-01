@@ -5,13 +5,6 @@ import Sparse.Helper as H
 toEnum' :: Int -> [Int]
 toEnum' = H.toEnumInBase 2
 
-
-eqlist :: [Int] -> [Int] -> Bool
-eqlist [] [] = True
-eqlist [] _ = False
-eqlist _ [] = False
-eqlist (n1:r1) (n2:r2) = n1 == n2 && eqlist r1 r2
-
 addPow2List :: Int -> [Int] -> [Int]
 addPow2List pow2 =
   let
@@ -71,4 +64,4 @@ instance Enum SBinary where
   pred sb = mkSBinary $ removePowFromList 1 $ sBinary sb
 
 instance Eq SBinary where
-  (==) sb1 sb2 = eqlist (sBinary sb1) (sBinary sb2)
+  (==) sb1 sb2 = H.isEqualList (sBinary sb1) (sBinary sb2)

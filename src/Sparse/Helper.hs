@@ -1,4 +1,4 @@
-module Sparse.Helper(largestPowBaseBetween,fromEnum',show',showReprWBase,toEnumInBase) where
+module Sparse.Helper(largestPowBaseBetween,fromEnum',show',showReprWBase,toEnumInBase,isEqualList) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -70,3 +70,9 @@ toEnumInBase base =
         then toEnum' rest++[powMul]
         else [powMul]
   in toEnum'
+
+isEqualList :: [Int] -> [Int] -> Bool
+isEqualList [] [] = True
+isEqualList [] _ = False
+isEqualList _ [] = False
+isEqualList (n1:r1) (n2:r2) = n1 == n2 && isEqualList r1 r2
