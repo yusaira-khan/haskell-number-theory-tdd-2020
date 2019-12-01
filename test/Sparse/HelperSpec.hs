@@ -16,6 +16,7 @@ asBigAsTest  = describe "as big as" $ do
 big3test :: Spec
 big3test  = describe  "big 3" $ do
   checkBig3 ("simplest",(True,0),1,(True,1))
+  checkBig3 ("simplest",(True,0),2,(True,1))
 spec = do
   asBigAsTest
   big3test
