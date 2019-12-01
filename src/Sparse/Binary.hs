@@ -38,7 +38,8 @@ asBigAs (ok,pow2) curr=
 inRightOrder :: [Int] -> Bool
 inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
 
-
+pred2List :: [Int] -> [Int]
+pred2List (1:l) = l
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
 mkSBinary [] =  SBinary []
@@ -57,7 +58,7 @@ instance Enum SBinary where
   toEnum d = SBinary $ toEnum' d
   fromEnum sb = H.fromEnum' $ sBinary sb
   succ sb = SBinary $ addPow2List 1 $ sBinary sb
-  pred sb = undefined
+  pred sb = SBinary $ pred2List $ sBinary sb
 
 instance Eq SBinary where
   (==) sb1 sb2 = eqlist (sBinary sb1) (sBinary sb2)

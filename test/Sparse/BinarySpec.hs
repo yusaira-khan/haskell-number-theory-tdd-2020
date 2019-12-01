@@ -71,7 +71,7 @@ checkPred ::(String,Int) -> SpecWith ()
 checkPred (name,num)= it name $ (pred (sb num)) `shouldBe` (sb (pred num))
 predTest :: Spec
 predTest = describe "Binary Spec test"  $ do
-  checkPred ("Zero",0)
+  checkPred ("One",1)
 spec = do
   toEnum''
   stringtest
