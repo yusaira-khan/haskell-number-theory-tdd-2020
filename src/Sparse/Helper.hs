@@ -6,7 +6,8 @@ module Sparse.Helper(
   toEnumInBase,
   isEqualList,
   isValidPowBase,
-  inRightOrder) where
+  inRightOrder,
+  asBigAs) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
