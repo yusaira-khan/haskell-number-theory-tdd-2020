@@ -7,7 +7,8 @@ module Sparse.Helper(
   isEqualList,
   isValidPowBase,
   inRightOrder,
-  asBigAs) where
+  asBigAs,
+  isSmallerInBase) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -93,11 +94,12 @@ isValidPowBase base =let isValid num = let (q,r) = quotRem num base
                                        then 0 <= r && r < base
                                        else r==0 && isValid q
    in isValid
-asBigAs  :: (Bool,Int) -> Int -> (Bool,Int)
-asBigAs (ok,pow2) curr=
-  let newok = ok && curr > pow2
-      newpow2 = if newok then curr else pow2
-  in  (newok,newpow2)
-
+isSmallerInBase  :: Int ->  (Bool,Int) -> Int -> (Bool,Int)
+isSmallerInBase base =
+  let isSmaller (ok,pow) curr = let newok = ok && curr > pow
+                                    newpow2 = if newok then curr else pow
+                                in  (newok,newpow2)
+  in isSmaller
+asBigAs = isSmallerInBase 2
 inRightOrder :: [Int] -> Bool
 inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
