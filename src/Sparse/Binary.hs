@@ -37,7 +37,7 @@ mkSBinary l=
   let incorrectElements = filter (not.isValidPow2) l
   in if null incorrectElements
   then
-    if H.inRightOrder l
+    if H.isRightOrderInBase 2 l
     then SBinary l
     else error $ "Incorrect order " ++ show l
   else error $ "Invalid elements " ++ show incorrectElements

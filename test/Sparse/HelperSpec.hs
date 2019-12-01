@@ -2,7 +2,7 @@ module Sparse.HelperSpec(spec) where
 import Test.Hspec
 import Sparse.Helper as SH
 checkAsBig :: (String,(Bool,Int),Int,(Bool,Int)) -> SpecWith ()
-checkAsBig (s,t1,n,t2)= it s $ (SH.asBigAs t1 n) `shouldBe` t2
+checkAsBig (s,t1,n,t2)= it s $ (SH.isSmallerInBase 2 t1 n) `shouldBe` t2
 checkBig3 :: (String,(Bool,Int),Int,(Bool,Int)) -> SpecWith ()
 checkBig3 (s,t1,n,t2)= it s $ (SH.isSmallerInBase 3 t1 n) `shouldBe` t2
 asBigAsTest  :: Spec

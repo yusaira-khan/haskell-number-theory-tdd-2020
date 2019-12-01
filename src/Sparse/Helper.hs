@@ -6,8 +6,7 @@ module Sparse.Helper(
   toEnumInBase,
   isEqualList,
   isValidPowBase,
-  inRightOrder,
-  asBigAs,
+  isRightOrderInBase,
   isSmallerInBase) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
@@ -103,6 +102,7 @@ isSmallerInBase base =
           updatedPow = if updatedOk then powForCurr else pow
           in  (updatedOk,updatedPow)
   in isSmaller
-asBigAs = isSmallerInBase 2
-inRightOrder :: [Int] -> Bool
-inRightOrder  l= let (ok,_) = foldl asBigAs (True,0) l in ok
+isRightOrderInBase :: Int -> [Int] -> Bool
+isRightOrderInBase base l =
+  let (ok,_) = foldl (isSmallerInBase base) (True,0) l
+  in ok
