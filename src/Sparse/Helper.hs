@@ -96,9 +96,12 @@ isValidPowBase base =let isValid num = let (q,r) = quotRem num base
    in isValid
 isSmallerInBase  :: Int ->  (Bool,Int) -> Int -> (Bool,Int)
 isSmallerInBase base =
-  let isSmaller (ok,pow) curr = let newok = ok && curr > pow
-                                    newpow2 = if newok then curr else pow
-                                in  (newok,newpow2)
+  let isSmaller (ok,pow) curr =
+        let
+          powForCurr = largestPowBaseBetween base 1 curr
+          updatedOk = ok && powForCurr > pow
+          updatedPow = if updatedOk then powForCurr else pow
+          in  (updatedOk,updatedPow)
   in isSmaller
 asBigAs = isSmallerInBase 2
 inRightOrder :: [Int] -> Bool
