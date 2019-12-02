@@ -7,7 +7,8 @@ module Sparse.Helper(
   isEqualList,
   isValidPowBase,
   mkSparse,
-  isSmallerInBase) where
+  isSmallerInBase,
+  addBasePow) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -110,13 +111,27 @@ isRightOrderInBase base l =
 
 mkSparse :: ([Int] -> a) -> Int ->[Int] -> a
 mkSparse cons base =
-  let mk [] =  cons []
-      mk l=
+  let mk l=
         let incorrectElements = filter (not.(isValidPowBase base)) l
         in if null incorrectElements
         then
-          if isRightOrderInBase 2 l
+          if isRightOrderInBase base l
           then cons l
           else error $ "Incorrect order " ++ show l
         else error $ "Invalid elements " ++ show incorrectElements
   in mk
+
+
+addBasePow ::Int -> Int -> [Int] -> [Int]
+addBasePow base =
+  let addPowList pow =
+        let
+          nextpow = pow*base
+          addList [] = [pow]
+          addList full@(curr:rest) =
+            case compare curr pow of
+             GT -> pow:full
+             EQ -> addPowList nextpow rest
+             LT -> curr:(addPowList pow rest)
+        in addList
+  in addPowList

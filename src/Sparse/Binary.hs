@@ -1,21 +1,10 @@
 --{-# LANGUAGE InstanceSigs #-}
 module Sparse.Binary(SBinary,mkSBinary,toEnum') where
-import Sparse.Helper as H
+import qualified Sparse.Helper as H
 
 toEnum' :: Int -> [Int]
 toEnum' = H.toEnumInBase 2
 
-addPow2List :: Int -> [Int] -> [Int]
-addPow2List pow2 =
-  let
-    nextpow2 = pow2*2
-    addList [] = [pow2]
-    addList full@(curr:rest) =
-      case compare curr pow2 of
-       GT -> pow2:full
-       EQ -> addPow2List nextpow2 rest
-       LT -> curr:(addPow2List pow2 rest)
-  in addList
 
 removePowFromList :: Int -> [Int] -> [Int]
 removePowFromList pow2 =
@@ -38,7 +27,7 @@ instance Show SBinary where
 instance Enum SBinary where
   toEnum d = mkSBinary $ toEnum' d
   fromEnum sb = H.fromEnum' $ sBinary sb
-  succ sb = mkSBinary $ addPow2List 1 $ sBinary sb
+  succ sb = mkSBinary $ H.addBasePow 2 1 $ sBinary sb
   pred sb = mkSBinary $ removePowFromList 1 $ sBinary sb
 
 instance Eq SBinary where
