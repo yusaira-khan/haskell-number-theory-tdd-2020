@@ -29,18 +29,9 @@ removePowFromList pow2 =
         GT -> pow2:removePowFromList nextPow2 full
         LT ->  undefined
   in pred2List
-isValidPow2 = H.isValidPowBase 2
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
-mkSBinary [] =  SBinary []
-mkSBinary l=
-  let incorrectElements = filter (not.isValidPow2) l
-  in if null incorrectElements
-  then
-    if H.isRightOrderInBase 2 l
-    then SBinary l
-    else error $ "Incorrect order " ++ show l
-  else error $ "Invalid elements " ++ show incorrectElements
+mkSBinary = H.mkSparse SBinary 2
 
 instance Show SBinary where
   show = H.show' sBinary (H.showReprWBase 2.sBinary)

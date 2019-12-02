@@ -6,7 +6,7 @@ module Sparse.Helper(
   toEnumInBase,
   isEqualList,
   isValidPowBase,
-  isRightOrderInBase,
+  mkSparse,
   isSmallerInBase) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
@@ -106,3 +106,17 @@ isRightOrderInBase :: Int -> [Int] -> Bool
 isRightOrderInBase base l =
   let (ok,_) = foldl (isSmallerInBase base) (True,0) l
   in ok
+
+
+mkSparse :: ([Int] -> a) -> Int ->[Int] -> a
+mkSparse cons base =
+  let mk [] =  cons []
+      mk l=
+        let incorrectElements = filter (not.(isValidPowBase base)) l
+        in if null incorrectElements
+        then
+          if isRightOrderInBase 2 l
+          then cons l
+          else error $ "Incorrect order " ++ show l
+        else error $ "Invalid elements " ++ show incorrectElements
+  in mk
