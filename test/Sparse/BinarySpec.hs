@@ -1,7 +1,7 @@
 module Sparse.BinarySpec(spec) where
 import Test.Hspec
-import Sparse.Binary as SB
-import Helper as H
+import qualified Sparse.Binary as SB
+import qualified Helper as H
 import Control.Exception(evaluate)
 
 enumTestList = [
@@ -42,7 +42,7 @@ eqtest = describe "Sparse Eq" $ do
   checkEq ("OneThree",1,3,False)
 
 checkSucc ::(String,Int) -> SpecWith ()
-checkSucc (name,num)= it name $ (succ (sb num)) `shouldBe` (sb (succ num))
+checkSucc = H.checkSucc sb
 succtest :: Spec
 succtest = describe "Binary Succ" $ do
   checkSucc ("Zero",0)

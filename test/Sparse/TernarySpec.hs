@@ -1,7 +1,7 @@
 module Sparse.TernarySpec (spec) where
 import Test.Hspec
-import Sparse.Ternary as ST
-import Helper as H
+import qualified Sparse.Ternary as ST
+import qualified Helper as H
 
 testList = [
       ("One" , 1 , [1]),
@@ -34,6 +34,14 @@ stringtest = describe "Sparse Ternary String" $ do
   checkStr("Four",4,"(S=[1,3]|D=4|B=3_11)")
   checkStr("Five",5,"(S=[2,3]|D=5|B=3_12)")
   checkStr("Six",6,"(S=[6]|D=6|B=3_20)")
+st a = toEnum a :: ST.STernary
+checkSucc :: (String,Int)->SpecWith ()
+checkSucc = H.checkSucc st
+
+testSucc :: Spec
+testSucc = describe "Ternary Succ test" $ do
+  checkSucc ("Zero",0)
 spec = do
   toEnum''
   stringtest
+  testSucc
