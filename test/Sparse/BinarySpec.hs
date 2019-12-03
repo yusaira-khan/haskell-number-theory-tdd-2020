@@ -41,14 +41,14 @@ eqtest = describe "Sparse Eq" $ do
   checkEq ("OneTwo",1,2,False)
   checkEq ("OneThree",1,3,False)
 
-checkSucc ::(String,Int) -> SpecWith ()
+checkSucc ::Int -> SpecWith ()
 checkSucc = H.checkSucc sb
 succtest :: Spec
 succtest = describe "Binary Succ" $ do
-  checkSucc ("Zero",0)
-  checkSucc ("One",1)
-  checkSucc ("Two",2)
-  checkSucc ("Three",3)
+  checkSucc 0
+  checkSucc 1
+  checkSucc 2
+  checkSucc 3
 checkInvalidCons :: ([Int],String) -> SpecWith ()
 checkInvalidCons (value, errorName) =
   it errorName $ (evaluate $ SB.mkSBinary value) `shouldThrow` errorCall errorName

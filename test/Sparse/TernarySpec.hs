@@ -35,12 +35,12 @@ stringtest = describe "Sparse Ternary String" $ do
   checkStr(5,"(S=[2,3]|D=5|B=3_12)")
   checkStr(6,"(S=[6]|D=6|B=3_20)")
 st a = toEnum a :: ST.STernary
-checkSucc :: (String,Int)->SpecWith ()
+checkSucc :: Int->SpecWith ()
 checkSucc = H.checkSucc st
 
 testSucc :: Spec
 testSucc = describe "Ternary Succ test" $ do
-  checkSucc ("Zero",0)
+  checkSucc 0
 spec = do
   toEnum''
   stringtest

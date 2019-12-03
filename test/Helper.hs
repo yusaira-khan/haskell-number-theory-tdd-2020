@@ -17,5 +17,5 @@ checkStrReprFun ::(Int->String)->(Int,String) -> SpecWith ()
 checkStrReprFun fun (num,rep) =
   it (N.names num)$ (fun num) `shouldBe` rep
 
-checkSucc ::(Enum a, Show a,Eq a)=>(Int-> a)->(String,Int) -> SpecWith ()
-checkSucc s (name,num)= it name $ (succ (s num)) `shouldBe` (s (succ num))
+checkSucc ::(Enum a, Show a,Eq a)=>(Int-> a)->Int -> SpecWith ()
+checkSucc s num= it (N.names num) $ (succ (s num)) `shouldBe` (s (succ num))
