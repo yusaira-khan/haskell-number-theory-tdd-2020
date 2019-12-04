@@ -2,7 +2,6 @@ module Sparse.BinarySpec(spec) where
 import Test.Hspec
 import qualified Sparse.Binary as SB
 import qualified Helper as H
-import Control.Exception(evaluate)
 
 enumTestList = [
  ( 1 , [1]),
@@ -50,8 +49,7 @@ succtest = describe "Binary Succ" $ do
   checkSucc 2
   checkSucc 3
 checkInvalidCons :: ([Int],String) -> SpecWith ()
-checkInvalidCons (value, errorName) =
-  it errorName $ (evaluate $ SB.mkSBinary value) `shouldThrow` errorCall errorName
+checkInvalidCons = H.checkError SB.mkSBinary
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
   checkInvalidCons ([1,1],"Incorrect order [1,1]")

@@ -1,5 +1,6 @@
-module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq) where
+module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError) where
 import Test.Hspec
+import Control.Exception(evaluate)
 import qualified NumberNames as N
 
 checkRepr ::(Int-> [Int])->(Int,[Int]) -> Expectation
@@ -22,3 +23,7 @@ checkSucc s num= it (N.names num) $ (succ (s num)) `shouldBe` (s (succ num))
 
 checkEq :: (Enum a, Show a,Eq a)=>(Int-> a)->(Int,Int,Bool) -> SpecWith ()
 checkEq s (num1,num2,truth) = it ((N.names num1)++(N.names num2)) $ ((s num1) == (s num2)) `shouldBe` truth
+
+checkError :: (a->b)->(a,String) -> SpecWith ()
+checkError fun (value, errorName) =
+  it errorName $ (evaluate $ fun value) `shouldThrow` errorCall errorName
