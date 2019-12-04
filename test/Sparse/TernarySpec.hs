@@ -41,7 +41,17 @@ checkSucc = H.checkSucc st
 testSucc :: Spec
 testSucc = describe "Ternary Succ test" $ do
   checkSucc 0
+
+checkInvalidCons :: ([Int],String) -> SpecWith ()
+checkInvalidCons = H.checkError ST.mkSTernary
+smartConsTest ::Spec
+smartConsTest = describe "Smart constructor test" $ do
+  checkInvalidCons ([1,1],"Incorrect order [1,1]")
+  checkInvalidCons ([1,2],"Incorrect order [1,2]")
+  checkInvalidCons ([3,1],"Incorrect order [3,1]")
+  checkInvalidCons ([4,2,5,162,36],"Invalid elements [4,5,36]")
 spec = do
   toEnum''
   stringtest
   testSucc
+  smartConsTest

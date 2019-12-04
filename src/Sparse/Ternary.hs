@@ -1,4 +1,4 @@
-module Sparse.Ternary(toEnum',STernary(STernary)) where
+module Sparse.Ternary(toEnum',STernary(STernary),mkSTernary) where
 import Sparse.Helper as H
 
 
@@ -8,6 +8,8 @@ toEnum' = H.toEnumInBase 3
 
 
 newtype STernary = STernary {sTernary :: [Int]}
+mkSTernary :: [Int] -> STernary
+mkSTernary = H.mkSparse STernary 3
 instance Show STernary where
   show = H.show' sTernary (H.showReprWBase 3.sTernary)
 instance Enum STernary where
