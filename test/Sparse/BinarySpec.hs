@@ -55,14 +55,14 @@ smartConsTest = describe "Smart constructor test" $ do
   checkInvalidCons ([1,1],"Incorrect order [1,1]")
   checkInvalidCons ([2,1],"Incorrect order [2,1]")
   checkInvalidCons ([3,2,6],"Invalid elements [3,6]")
-checkPred ::(String,Int) -> SpecWith ()
-checkPred (name,num)= it name $ (pred (sb num)) `shouldBe` (sb (pred num))
+checkPred ::Int -> SpecWith ()
+checkPred = H.checkPred sb
 predTest :: Spec
 predTest = describe "Binary Pred test"  $ do
-  checkPred ("One",1)
-  checkPred ("Two",2)
-  checkPred ("Three",3)
-  checkPred ("Four",4)
+  checkPred (1)
+  checkPred (2)
+  checkPred (3)
+  checkPred (4)
 spec = do
   toEnum''
   stringtest
