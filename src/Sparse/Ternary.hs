@@ -15,7 +15,7 @@ instance Show STernary where
 instance Enum STernary where
   toEnum d = STernary $ toEnum' d
   fromEnum st = H.fromEnum' $ sTernary st
-  succ st = STernary [1]
+  succ st = mkSTernary $ H.addBasePow 3 1 $ sTernary st
 
 instance Eq STernary where
   (==) s1 s2 = H.isEqualList (sTernary s1) (sTernary s2)

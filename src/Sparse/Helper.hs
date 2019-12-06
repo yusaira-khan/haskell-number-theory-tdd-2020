@@ -120,18 +120,32 @@ mkSparse cons base =
           else error $ "Incorrect order " ++ show l
         else error $ "Invalid elements " ++ show incorrectElements
   in mk
-
+data BaseDigit = None | Middle | Last
+getBaseDigit :: Int -> Int -> Int -> BaseDigit
+getBaseDigit base pow powDigit =
+  let nextPow = pow *base
+      lastDigit = nextPow - pow
+  in if nextPow <= powDigit
+  then None
+  else if powDigit == lastDigit
+  then Last
+  else if  pow<= powDigit
+  then Middle
+  else undefined
 
 addBasePow ::Int -> Int -> [Int] -> [Int]
 addBasePow base =
-  let addPowList pow =
+  let
+    powDigit = getBaseDigit base
+    addPowList pow =
         let
+          getDig = powDigit pow
           nextpow = pow*base
           addList [] = [pow]
           addList full@(curr:rest) =
-            case compare curr pow of
-             GT -> pow:full
-             EQ -> addPowList nextpow rest
-             LT -> curr:(addPowList pow rest)
+            case getDig curr of
+             None -> pow:full
+             Last -> addPowList nextpow rest
+             Middle -> (curr+pow):rest
         in addList
   in addPowList

@@ -39,9 +39,7 @@ checkSucc :: Int->SpecWith ()
 checkSucc = H.checkSucc st
 
 testSucc :: Spec
-testSucc = describe "Ternary Succ test" $ do
-  checkSucc 0
-
+testSucc = H.testGen checkSucc "Ternary Succ test" $ enumFromTo 0 50
 checkInvalidCons :: ([Int],String) -> SpecWith ()
 checkInvalidCons = H.checkError ST.mkSTernary
 smartConsTest ::Spec
