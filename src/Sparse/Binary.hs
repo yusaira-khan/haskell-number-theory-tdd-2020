@@ -1,10 +1,6 @@
 --{-# LANGUAGE InstanceSigs #-}
-module Sparse.Binary(SBinary,mkSBinary,toEnum') where
+module Sparse.Binary(SBinary,mkSBinary) where
 import qualified Sparse.Helper as H
-
-toEnum' :: Int -> [Int]
-toEnum' = H.toEnumInBase 2
-
 
 newtype SBinary = SBinary {sBinary :: [Int]}
 mkSBinary :: [Int] -> SBinary
@@ -13,7 +9,7 @@ mkSBinary = H.mkSparse SBinary 2
 instance Show SBinary where
   show = H.show' sBinary (H.showReprWBase 2.sBinary)
 instance Enum SBinary where
-  toEnum d = mkSBinary $ toEnum' d
+  toEnum d = mkSBinary $ H.toEnumInBase 2 d
   fromEnum sb = H.fromEnum' $ sBinary sb
   succ sb = mkSBinary $ H.addBasePow 2 1 $ sBinary sb
   pred sb = mkSBinary $ H.removeBasePow 2 1 $ sBinary sb

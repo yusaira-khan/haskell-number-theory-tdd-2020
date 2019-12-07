@@ -22,7 +22,7 @@ toEnumFun = H.testToEnum SB.mkSBinary sb
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
 checkStr ::(Int,String) -> SpecWith ()
-checkStr  = H.checkStrReprFun (show . SB.mkSBinary . SB.toEnum')
+checkStr  = H.checkStrReprFun (show . sb)
 stringtest :: Spec
 stringtest = describe "Sparse Binary String" $ do
   checkStr (0,"(S=[]|D=0|B=2_0)")

@@ -26,7 +26,7 @@ toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Ternary ToEnum" testList
 
 checkStr ::(Int,String) -> SpecWith ()
-checkStr  = H.checkStrReprFun (show . ST.STernary . ST.toEnum')
+checkStr  = H.checkStrReprFun (show . st)
 stringtest :: Spec
 stringtest = describe "Sparse Ternary String" $ do
   checkStr(0,"(S=[]|D=0|B=3_0)")
