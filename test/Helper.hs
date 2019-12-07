@@ -3,11 +3,9 @@ import Test.Hspec
 import Control.Exception(evaluate)
 import qualified NumberNames as N
 
-checkRepr ::(Int-> [Int])->(Int,[Int]) -> Expectation
-checkRepr fun (num,repr) = shouldBe (fun num) repr
 
-testToEnum ::(Int-> [Int])-> (Int,[Int]) -> SpecWith ()
-testToEnum fun (num,enum) = it (N.names num)$ checkRepr fun (num,enum)
+testToEnum :: (Show a,Eq a) => ([Int]->a)->(Int-> a)-> (Int,[Int]) -> SpecWith ()
+testToEnum cons fun (num,repr) = it (N.names num)$ shouldBe (fun num) (cons repr)
 bindAllList :: (Monad m) => (a -> m b) -> [a] -> m b
 bindAllList fun (a:[]) = fun a
 bindAllList fun (a:as) = fun a >>  bindAllList fun as

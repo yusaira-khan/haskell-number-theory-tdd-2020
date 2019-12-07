@@ -17,8 +17,10 @@ testList = [
       ( 11 , [2,9]),
       ( 12 , [3,9]),
       ( 0 , [])]
+st :: Int -> ST.STernary
+st a = toEnum a :: ST.STernary
 toEnumFun :: (Int,[Int]) -> SpecWith ()
-toEnumFun = H.testToEnum ST.toEnum'
+toEnumFun = H.testToEnum ST.mkSTernary st
 
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Ternary ToEnum" testList
@@ -34,7 +36,6 @@ stringtest = describe "Sparse Ternary String" $ do
   checkStr(4,"(S=[1,3]|D=4|B=3_11)")
   checkStr(5,"(S=[2,3]|D=5|B=3_12)")
   checkStr(6,"(S=[6]|D=6|B=3_20)")
-st a = toEnum a :: ST.STernary
 checkSucc :: Int->SpecWith ()
 checkSucc = H.checkSucc st
 

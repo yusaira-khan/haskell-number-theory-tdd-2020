@@ -14,8 +14,10 @@ enumTestList = [
  ( 8 , [8]),
  ( 0 , [])]
 
+sb :: Int -> SB.SBinary
+sb n = toEnum n :: SB.SBinary
 toEnumFun :: (Int,[Int]) -> SpecWith ()
-toEnumFun = H.testToEnum SB.toEnum'
+toEnumFun = H.testToEnum SB.mkSBinary sb
 
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
@@ -28,7 +30,6 @@ stringtest = describe "Sparse Binary String" $ do
   checkStr (2,"(S=[2]|D=2|B=2_10)")
   checkStr (3,"(S=[1,2]|D=3|B=2_11)")
   checkStr (4,"(S=[4]|D=4|B=2_100)")
-sb n = toEnum n :: SB.SBinary
 checkEq ::(Int,Int,Bool) -> SpecWith ()
 checkEq = H.checkEq sb
 eqtest :: Spec
