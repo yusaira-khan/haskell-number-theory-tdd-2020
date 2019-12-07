@@ -8,7 +8,8 @@ module Sparse.Helper(
   isValidPowBase,
   mkSparse,
   isSmallerInBase,
-  addBasePow) where
+  addBasePow,
+  removeBasePow) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -149,3 +150,18 @@ addBasePow base =
              Middle -> (curr+pow):rest
         in addList
   in addPowList
+
+removeBasePow :: Int -> Int -> [Int] ->[Int]
+removeBasePow base =
+ let removePow pow =
+       let
+         nextPow = pow*base
+         predList :: [Int] -> [Int]
+         predList [] = []
+         predList full@(curr:rest) =
+           case compare curr pow of
+             EQ -> rest
+             GT -> pow:removePow nextPow full
+             LT ->  undefined
+       in predList
+ in removePow

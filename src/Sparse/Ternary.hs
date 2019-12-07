@@ -16,7 +16,7 @@ instance Enum STernary where
   toEnum d = STernary $ toEnum' d
   fromEnum st = H.fromEnum' $ sTernary st
   succ st = mkSTernary $ H.addBasePow 3 1 $ sTernary st
-  pred st = undefined
+  pred st = mkSTernary $ H.removeBasePow 3 1 $ sTernary st
 
 
 instance Eq STernary where
