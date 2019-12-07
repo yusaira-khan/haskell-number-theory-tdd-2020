@@ -121,15 +121,18 @@ mkSparse cons base =
           else error $ "Incorrect order " ++ show l
         else error $ "Invalid elements " ++ show incorrectElements
   in mk
-data BaseDigit = None | Middle | Last
+data BaseDigit = None |First | Middle | Last
 getBaseDigit :: Int -> Int -> Int -> BaseDigit
 getBaseDigit base pow powDigit =
   let nextPow = pow *base
       lastDigit = nextPow - pow
+      firstDigit = pow
   in if nextPow <= powDigit
   then None
   else if powDigit == lastDigit
   then Last
+  else if powDigit == firstDigit
+  then First
   else if  pow<= powDigit
   then Middle
   else undefined
@@ -142,12 +145,21 @@ addBasePow base =
         let
           getDig = powDigit pow
           nextpow = pow*base
+          handleLast list = addPowList nextpow $ tail list
+          handleMiddle list =
+            let
+              curr = head list
+              rest = tail list
+            in (curr+pow):rest
           addList [] = [pow]
           addList full@(curr:rest) =
             case getDig curr of
              None -> pow:full
-             Last -> addPowList nextpow rest
-             Middle -> (curr+pow):rest
+             Last -> handleLast full
+             Middle -> handleMiddle full
+             First -> if base == 2
+                      then handleLast full
+                      else handleMiddle full
         in addList
   in addPowList
 
@@ -155,13 +167,21 @@ removeBasePow :: Int -> Int -> [Int] ->[Int]
 removeBasePow base =
  let removePow pow =
        let
+         getDig = getBaseDigit base pow
          nextPow = pow*base
+         handleFirst list = tail list
+         handleMiddle list =
+           let rest = tail list
+               curr = head list
+               in (curr -pow):rest
+         handleNone list = (nextPow-pow):removePow nextPow list
          predList :: [Int] -> [Int]
          predList [] = []
          predList full@(curr:rest) =
-           case compare curr pow of
-             EQ -> rest
-             GT -> pow:removePow nextPow full
-             LT ->  undefined
+           case getDig curr of
+             First -> handleFirst full
+             Last ->  if base==2 then handleFirst full else handleMiddle full
+             Middle -> handleMiddle full
+             None -> handleNone full
        in predList
  in removePow

@@ -51,7 +51,7 @@ smartConsTest = describe "Smart constructor test" $ do
 checkPred ::Int -> SpecWith ()
 checkPred = H.checkPred st
 predTest :: Spec
-predTest = H.testGen checkPred "Ternary Pred test" $ enumFromTo 1 1
+predTest = H.testGen checkPred "Ternary Pred test" $ enumFromTo 1 2
 spec = do
   toEnum''
   stringtest
