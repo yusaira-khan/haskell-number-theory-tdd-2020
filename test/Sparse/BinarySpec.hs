@@ -64,6 +64,12 @@ predTest = describe "Binary Pred test"  $ do
   checkPred (2)
   checkPred (3)
   checkPred (4)
+
+checkComp :: (Int,Int) -> SpecWith ()
+checkComp = H.checkComp sb
+compareTest ::Spec
+compareTest = describe "Compare Binary" $ do
+  checkComp (0,0)
 spec = do
   toEnum''
   stringtest
@@ -71,3 +77,4 @@ spec = do
   succtest
   smartConsTest
   predTest
+  compareTest

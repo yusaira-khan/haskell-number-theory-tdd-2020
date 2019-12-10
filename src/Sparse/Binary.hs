@@ -16,3 +16,6 @@ instance Enum SBinary where
 
 instance Eq SBinary where
   (==) sb1 sb2 = H.isEqualList (sBinary sb1) (sBinary sb2)
+
+instance Ord SBinary where
+  compare sb1 sb2 = undefined

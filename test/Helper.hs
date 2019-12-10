@@ -1,4 +1,4 @@
-module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError,checkPred) where
+module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError,checkPred,checkComp) where
 import Test.Hspec
 import Control.Exception(evaluate)
 import qualified NumberNames as N
@@ -28,3 +28,16 @@ checkError fun (value, errorName) =
 
 checkPred ::(Enum a, Show a,Eq a)=>(Int-> a)->(Int) -> SpecWith ()
 checkPred s num = it (N.names num) $ (pred (s num)) `shouldBe` (s (pred num))
+
+checkComp :: (Ord a)=>(Int->a)->(Int,Int) -> SpecWith()
+checkComp cons (num1,num2) =
+  let
+    name1 = N.names num1
+    name2 = N.names num2
+    s1 = cons num1
+    s2 = cons num2
+    ordNum = compare num1 num2
+    ordname = show ordNum
+    ordS = compare s1 s2
+    testname = name1 ++name2 ++ ordname
+  in it testname $ ordS `shouldBe` ordNum
