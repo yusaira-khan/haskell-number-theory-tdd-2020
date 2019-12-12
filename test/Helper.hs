@@ -1,4 +1,4 @@
-module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError,checkPred,checkComp) where
+module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError,checkPred,checkComp,selfzip) where
 import Test.Hspec
 import Control.Exception(evaluate)
 import qualified NumberNames as N
@@ -41,3 +41,10 @@ checkComp cons (num1,num2) =
     ordS = compare s1 s2
     testname = name1 ++name2 ++ ordname
   in it testname $ ordS `shouldBe` ordNum
+
+
+selfzip :: [Int] -> [(Int,Int)]
+selfzip xlist =
+  xlist >>= \x ->
+  xlist >>= \xAgain ->
+  return (x,xAgain)

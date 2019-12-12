@@ -9,7 +9,8 @@ module Sparse.Helper(
   mkSparse,
   isSmallerInBase,
   addBasePow,
-  removeBasePow) where
+  removeBasePow,
+  compareInc) where
 largestPowBaseBetween :: Int -> Int -> Int -> Int
 largestPowBaseBetween base pow num = case compare pow num of
   GT -> (quot pow base)
@@ -152,7 +153,7 @@ addBasePow base =
               rest = tail list
             in (curr+pow):rest
           addList [] = [pow]
-          addList full@(curr:rest) =
+          addList full@(curr:_) =
             case getDig curr of
              None -> pow:full
              Last -> handleLast full
@@ -177,7 +178,7 @@ removeBasePow base =
          handleNone list = (nextPow-pow):removePow nextPow list
          predList :: [Int] -> [Int]
          predList [] = []
-         predList full@(curr:rest) =
+         predList full@(curr:_) =
            case getDig curr of
              First -> handleFirst full
              Last ->  if base==2 then handleFirst full else handleMiddle full
@@ -185,3 +186,17 @@ removeBasePow base =
              None -> handleNone full
        in predList
  in removePow
+
+compareDecList :: [Int] -> [Int] -> Ordering
+compareDecList [] [] = EQ
+compareDecList [] _ = LT
+compareDecList _ [] = GT
+compareDecList (h1:t1) (h2:t2) =
+  case compare h1 h2 of
+    EQ -> compareDecList t1 t2
+    _ -> compare h1 h2
+
+compareInc :: (a->[Int]) -> a -> a -> Ordering
+compareInc getlist val1 val2 =
+  let f = reverse.getlist
+  in compareDecList (f val1) (f val2)

@@ -59,21 +59,11 @@ smartConsTest = describe "Smart constructor test" $ do
 checkPred ::Int -> SpecWith ()
 checkPred = H.checkPred sb
 predTest :: Spec
-predTest = describe "Binary Pred test"  $ do
-  checkPred (1)
-  checkPred (2)
-  checkPred (3)
-  checkPred (4)
-
+predTest = H.testGen checkPred "Binary Pred test" $ enumFromTo 1 4
 checkComp :: (Int,Int) -> SpecWith ()
 checkComp = H.checkComp sb
-selfzip :: [Int] -> [(Int,Int)]
-selfzip xlist =
-  xlist >>= \x ->
-  xlist >>= \xAgain ->
-  return (x,xAgain)
 compareTest ::Spec
-compareTest = H.testGen checkComp "Compare Binary" $ selfzip $ enumFromTo 0 10
+compareTest = H.testGen checkComp "Compare Binary" $ H.selfzip $ enumFromTo 0 10
 spec = do
   toEnum''
   stringtest
