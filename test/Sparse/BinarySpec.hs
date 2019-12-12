@@ -67,9 +67,13 @@ predTest = describe "Binary Pred test"  $ do
 
 checkComp :: (Int,Int) -> SpecWith ()
 checkComp = H.checkComp sb
+selfzip :: [Int] -> [(Int,Int)]
+selfzip xlist =
+  xlist >>= \x ->
+  xlist >>= \xAgain ->
+  return (x,xAgain)
 compareTest ::Spec
-compareTest = describe "Compare Binary" $ do
-  checkComp (0,0)
+compareTest = H.testGen checkComp "Compare Binary" $ selfzip $ enumFromTo 0 10
 spec = do
   toEnum''
   stringtest
