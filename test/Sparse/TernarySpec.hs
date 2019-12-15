@@ -56,7 +56,7 @@ predTest = H.testGen checkPred "Ternary Pred test" $ enumFromTo 1 50
 
 checkAdd = H.checkAdd st
 addTest ::Spec
-addTest = H.testGen checkAdd "Compare Ternary" $ H.selfzip $ enumFromTo 0 1
+addTest = H.testGen checkAdd "Compare Ternary" $ H.selfzip $ enumFromTo 0 2
 spec = do
   toEnum''
   stringtest
