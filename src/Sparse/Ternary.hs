@@ -1,6 +1,7 @@
 module Sparse.Ternary(STernary(STernary),mkSTernary) where
 import Sparse.Helper as H
 
+addHelper l1 l2 = []
 newtype STernary = STernary {sTernary :: [Int]}
 mkSTernary :: [Int] -> STernary
 mkSTernary = H.mkSparse STernary 3
@@ -18,4 +19,4 @@ instance Bounded STernary where
 instance Eq STernary where
   (==) s1 s2 = H.isEqualList (sTernary s1) (sTernary s2)
 instance Num STernary where
- (+) s1 s2  = mkSTernary []
+ (+) s1 s2  = mkSTernary $ addHelper (sTernary s1) (sTernary s2)
