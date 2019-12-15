@@ -1,7 +1,9 @@
 module Sparse.Ternary(STernary(STernary),mkSTernary) where
 import Sparse.Helper as H
 
-addHelper l1 l2 = []
+addHelper [] l = l
+addHelper l [] = l
+addHelper l1 l2 = [2]
 newtype STernary = STernary {sTernary :: [Int]}
 mkSTernary :: [Int] -> STernary
 mkSTernary = H.mkSparse STernary 3
