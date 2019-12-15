@@ -54,21 +54,7 @@ checkPred = H.checkPred st
 predTest :: Spec
 predTest = H.testGen checkPred "Ternary Pred test" $ enumFromTo 1 50
 
-checkAdd :: (Int,Int) -> SpecWith ()
-checkAdd (num1,num2) =
-  let
-    name1 = "Zero"
-    name2 = "Zero"
-    numSum = num1 + num2
-    nameSum = "Zero"
-    s = st
-    s1 = s num1
-    s2 = s num2
-    sumExpected = s numSum
-    sumCalculated = s1 + s2
-    testName = name1++" Plus "++name2 ++" Equals " ++nameSum
-    in it testName $ sumCalculated `shouldBe` sumExpected
-
+checkAdd = H.checkAdd st
 addTest ::Spec
 addTest = H.testGen checkAdd "Compare Ternary" $ H.selfzip $ enumFromTo 0 0
 spec = do

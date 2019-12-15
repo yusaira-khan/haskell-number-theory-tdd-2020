@@ -1,4 +1,4 @@
-module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError,checkPred,checkComp,selfzip) where
+module Helper(testToEnum,bindAllList,testGen,checkStrReprFun,checkSucc,checkEq,checkError,checkPred,checkComp,selfzip,checkAdd) where
 import Test.Hspec
 import Control.Exception(evaluate)
 import qualified NumberNames as N
@@ -48,3 +48,18 @@ selfzip xlist =
   xlist >>= \x ->
   xlist >>= \xAgain ->
   return (x,xAgain)
+
+
+checkAdd :: (Num a, Show a,Eq a)=>(Int->a)->(Int,Int) -> SpecWith ()
+checkAdd s (num1,num2) =
+  let
+    name1 = N.names num1
+    name2 = N.names num2
+    numSum = num1 + num2
+    nameSum = N.names numSum
+    s1 = s num1
+    s2 = s num2
+    sumExpected = s numSum
+    sumCalculated = s1 + s2
+    testName = name1++" Plus "++name2 ++" Equals " ++nameSum
+    in it testName $ sumCalculated `shouldBe` sumExpected
