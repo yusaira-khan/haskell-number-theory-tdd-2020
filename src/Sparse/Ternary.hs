@@ -12,6 +12,10 @@ instance Enum STernary where
   succ st = mkSTernary $ H.addBasePow 3 1 $ sTernary st
   pred st = mkSTernary $ H.removeBasePow 3 1 $ sTernary st
 
-
+instance Bounded STernary where
+  minBound  = mkSTernary []
+  maxBound = undefined
 instance Eq STernary where
   (==) s1 s2 = H.isEqualList (sTernary s1) (sTernary s2)
+instance Num STernary where
+ (+) s1 s2  = mkSTernary []
