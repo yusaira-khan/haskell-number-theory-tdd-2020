@@ -3,7 +3,12 @@ import Sparse.Helper as H
 
 addHelper [] l = l
 addHelper l [] = l
-addHelper l1 l2 = [2]
+addHelper l1 l2 =
+  let
+    h = head l1
+    p = H.largestPowBaseBetween 3 1 h
+    r = H.addBasePow 3 p l2
+  in r
 newtype STernary = STernary {sTernary :: [Int]}
 mkSTernary :: [Int] -> STernary
 mkSTernary = H.mkSparse STernary 3
