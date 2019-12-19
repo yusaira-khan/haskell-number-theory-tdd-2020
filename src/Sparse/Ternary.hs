@@ -1,14 +1,19 @@
 module Sparse.Ternary(STernary(STernary),mkSTernary) where
 import Sparse.Helper as H
 
-addHelper [] l = l
-addHelper l [] = l
-addHelper l1 l2 =
+addList [] l = l
+addList l [] = l
+addList l1 l2 =
   let
     h = head l1
     p = H.largestPowBaseBetween 3 1 h
     r = H.addBasePow 3 p l2
   in r
+addDigitToList base digit list@(least@rest) =
+  let
+    powDigit = getPow digit
+    powLeast = getPow least
+addDigitWithCarry base digit list =
 newtype STernary = STernary {sTernary :: [Int]}
 mkSTernary :: [Int] -> STernary
 mkSTernary = H.mkSparse STernary 3
@@ -26,4 +31,4 @@ instance Bounded STernary where
 instance Eq STernary where
   (==) s1 s2 = H.isEqualList (sTernary s1) (sTernary s2)
 instance Num STernary where
- (+) s1 s2  = mkSTernary $ addHelper (sTernary s1) (sTernary s2)
+ (+) s1 s2  = mkSTernary $ addList (sTernary s1) (sTernary s2)
