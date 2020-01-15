@@ -64,6 +64,9 @@ checkComp :: (Int,Int) -> SpecWith ()
 checkComp = H.checkComp sb
 compareTest ::Spec
 compareTest = H.testGen checkComp "Compare Binary" $ H.selfzip $ enumFromTo 0 10
+checkAdd = H.checkAdd sb
+addTest ::Spec
+addTest = H.testGen checkAdd "Add Binary" $ H.selfzip $ enumFromTo 0 1
 spec = do
   toEnum''
   stringtest
@@ -72,3 +75,4 @@ spec = do
   smartConsTest
   predTest
   compareTest
+  addTest

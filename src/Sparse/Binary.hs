@@ -21,5 +21,9 @@ instance Eq SBinary where
 instance Ord SBinary where
   compare = H.compareInc sBinary
 
+addHelper :: [Int] -> [Int] -> [Int]
+addHelper [] l = l
+addHelper l [] = l
+addHelper l1 l2 = [2]
 instance Num SBinary where
- (+) a b = undefined
+ (+) a b = mkSBinary $ addHelper (sBinary a) (sBinary b)
