@@ -21,6 +21,10 @@ instance Eq SBinary where
 instance Ord SBinary where
   compare = H.compareInc sBinary
 
+subHelper :: [Int] -> [Int] -> [Int]
+subHelper l [] = l
+subHelper [] _ = undefined
+subHelper l1 l2 = undefined
 addHelper :: [Int] -> [Int] -> [Int]
 addHelper [] l = l
 addHelper l [] = l
@@ -31,3 +35,4 @@ addHelper l1@(h1:t1) l2@(h2:t2) =
     EQ -> addHelper t2 $ addHelper [h1*2] t1
 instance Num SBinary where
  (+) a b = mkSBinary $ addHelper (sBinary a) (sBinary b)
+ (-) a b = mkSBinary $ subHelper (sBinary a) (sBinary b)
