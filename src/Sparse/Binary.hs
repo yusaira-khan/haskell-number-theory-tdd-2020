@@ -24,10 +24,10 @@ instance Ord SBinary where
 addHelper :: [Int] -> [Int] -> [Int]
 addHelper [] l = l
 addHelper l [] = l
-addHelper l1@(h1:t1) l2@(h2:_) =
+addHelper l1@(h1:t1) l2@(h2:t2) =
   case compare h1 h2 of
     LT -> h1: addHelper t1 l2
     GT -> addHelper l2 l1
-    EQ -> [h1*2]
+    EQ -> addHelper t2 $ addHelper [h1*2] t1
 instance Num SBinary where
  (+) a b = mkSBinary $ addHelper (sBinary a) (sBinary b)

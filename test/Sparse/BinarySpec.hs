@@ -66,7 +66,7 @@ compareTest ::Spec
 compareTest = H.testGen checkComp "Compare Binary" $ H.selfzip $ enumFromTo 0 10
 checkAdd = H.checkAdd sb
 addTest ::Spec
-addTest = H.testGen checkAdd "Add Binary" $ H.selfzip $ enumFromTo 0 2
+addTest = H.testGen checkAdd "Add Binary" $ H.selfzip $ enumFromTo 0 10
 spec = do
   toEnum''
   stringtest
