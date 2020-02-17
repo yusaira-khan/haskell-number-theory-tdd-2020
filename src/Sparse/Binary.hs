@@ -24,7 +24,12 @@ instance Ord SBinary where
 subHelper :: [Int] -> [Int] -> [Int]
 subHelper l [] = l
 subHelper [] _ = undefined
-subHelper l1 l2 = []
+subHelper l1@(h1:t1) l2@(h2:t2) =
+  case compare h1 h2 of
+    EQ -> subHelper t1 t2
+    GT -> 1 : subHelper t1 t2
+    LT -> undefined
+
 addHelper :: [Int] -> [Int] -> [Int]
 addHelper [] l = l
 addHelper l [] = l
