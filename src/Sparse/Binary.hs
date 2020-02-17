@@ -24,7 +24,7 @@ instance Ord SBinary where
 subHelper :: [Int] -> [Int] -> [Int]
 subHelper l [] = l
 subHelper [] _ = undefined
-subHelper l1 l2 = undefined
+subHelper l1 l2 = []
 addHelper :: [Int] -> [Int] -> [Int]
 addHelper [] l = l
 addHelper l [] = l
