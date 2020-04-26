@@ -19,3 +19,7 @@ spec = describe "factors" $ do
   checkFactors 2 [2]
   checkFactors 3 [3]
   checkFactors 4 [2,2]
+  checkFactors 5 [5]
+  checkFactors 6 [2,3]
+  checkFactors 7 [7]
+  checkFactors 8 [2,2,2]
