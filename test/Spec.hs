@@ -8,8 +8,8 @@ import qualified Prime.Factor
 
 main :: IO ()
 main = hspec $ do
-  Sparse.BinarySpec.spec
-  Sparse.TernarySpec.spec
-  Sparse.HelperSpec.spec
-  NumberNames.spec
+--  Sparse.BinarySpec.spec
+--  Sparse.TernarySpec.spec
+--  Sparse.HelperSpec.spec
+--  NumberNames.spec
   Prime.Factor.spec
