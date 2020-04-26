@@ -7,7 +7,10 @@ primeFactorsOf n =
   then
     if (n `mod` 2)==0
     then 2:primeFactorsOf (n `div` 2)
-    else [n]
+    else
+      if (n `mod` 3)==0
+      then 3:primeFactorsOf (n `div` 3)
+      else [n]
   else []
 
 checkFactors :: Int -> [Int] -> SpecWith ()
@@ -23,3 +26,4 @@ spec = describe "factors" $ do
   checkFactors 6 [2,3]
   checkFactors 7 [7]
   checkFactors 8 [2,2,2]
+  checkFactors 9 [3,3]
