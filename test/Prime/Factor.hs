@@ -3,8 +3,9 @@ import Test.Hspec
 
 primeFactorsOf :: Int -> [Int]
 primeFactorsOf n =
-  let factors = if n >1 then [n] else [] 
-  in factors
+  if n > 1
+  then [n]
+  else []
 
 checkFactors :: Int -> [Int] -> SpecWith ()
 checkFactors num factors = it ((show num)++" -> "++(show factors) )$ (primeFactorsOf num) `shouldBe` factors
@@ -14,3 +15,4 @@ spec = describe "factors" $ do
   checkFactors 1 []
   checkFactors 2 [2]
   checkFactors 3 [3]
+  checkFactors 4 [2,2]
