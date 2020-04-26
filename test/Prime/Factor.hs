@@ -4,7 +4,10 @@ import Test.Hspec
 primeFactorsOf :: Int -> [Int]
 primeFactorsOf n =
   if n > 1
-  then [n]
+  then
+    if (n `mod` 2)==0
+    then 2:primeFactorsOf (n `div` 2)
+    else [n]
   else []
 
 checkFactors :: Int -> [Int] -> SpecWith ()
