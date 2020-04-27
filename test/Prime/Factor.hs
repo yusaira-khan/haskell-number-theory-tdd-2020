@@ -1,18 +1,16 @@
 module Prime.Factor (spec)where
 import Test.Hspec
 
-primeFactorsOf :: Int -> [Int]
-primeFactorsOf n =
+primeFactorsStarting :: Int -> Int -> [Int]
+primeFactorsStarting d n =
   if n > 1
   then
-    if (n `mod` 2)==0
-    then 2:primeFactorsOf (n `div` 2)
-    else
-      if (n `mod` 3)==0
-      then 3:primeFactorsOf (n `div` 3)
-      else [n]
+    if (n `mod` d)==0
+    then d:primeFactorsStarting d (n `div` d)
+    else primeFactorsStarting (d+1) n
   else []
-
+primeFactorsOf :: Int -> [Int]
+primeFactorsOf = primeFactorsStarting 2
 checkFactors :: Int -> [Int] -> SpecWith ()
 checkFactors num factors = it ((show num)++" -> "++(show factors) )$ (primeFactorsOf num) `shouldBe` factors
 
