@@ -1,6 +1,6 @@
-module Sparse.HelperSpec(spec) where
+module Sparse.GeneralSpec(spec) where
 import Test.Hspec
-import Sparse.Helper as SH
+import Sparse.General as SH
 checkAsBig :: (String,(Bool,Int),Int,(Bool,Int)) -> SpecWith ()
 checkAsBig (s,t1,n,t2)= it s $ (SH.isSmallerInBase 2 t1 n) `shouldBe` t2
 checkBig3 :: (String,(Bool,Int),Int,(Bool,Int)) -> SpecWith ()

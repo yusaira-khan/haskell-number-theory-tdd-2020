@@ -9,11 +9,11 @@ addList l1 l2 =
     p = H.largestPowBaseBetween 3 1 h
     r = H.addBasePow 3 p l2
   in r
-addDigitToList base digit list@(least@rest) =
-  let
-    powDigit = getPow digit
-    powLeast = getPow least
-addDigitWithCarry base digit list =
+-- addDigitToList base digit list@(least@rest) =
+--   let
+--     powDigit = getPow digit
+--     powLeast = getPow least
+-- addDigitWithCarry base digit list =
 newtype STernary = STernary {sTernary :: [Int]}
 mkSTernary :: [Int] -> STernary
 mkSTernary = H.mkSparse STernary 3

@@ -1,6 +1,6 @@
 module Sparse.TernarySpec (spec) where
 import Test.Hspec
-import qualified Sparse.Ternary as ST
+import qualified Sparse.General as ST
 import qualified Helper as H
 
 testList = [

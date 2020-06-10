@@ -1,6 +1,6 @@
 module Sparse.BinarySpec(spec) where
 import Test.Hspec
-import qualified Sparse.Binary as SB
+import qualified Sparse.General as SB
 import qualified Helper as H
 
 enumTestList = [
