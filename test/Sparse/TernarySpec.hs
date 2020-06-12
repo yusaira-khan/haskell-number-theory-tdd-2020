@@ -17,16 +17,19 @@ testList = [
       ( 11 , [2,9]),
       ( 12 , [3,9]),
       ( 0 , [])]
-st :: Int -> ST.STernary
-st a = toEnum a :: ST.STernary
+toEnumTernary :: Int -> ST.STernary
+toEnumTernary a = toEnum a :: ST.STernary
+makeTernaryFromList :: [Int] -> ST.STernary
+makeTernaryFromList = ST.mkSTernary
+
 toEnumFun :: (Int,[Int]) -> SpecWith ()
-toEnumFun = H.testToEnum ST.mkSTernary st
+toEnumFun = H.testToEnum makeTernaryFromList toEnumTernary
 
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Ternary ToEnum" testList
 
 checkStr ::(Int,String) -> SpecWith ()
-checkStr  = H.checkStrReprFun (show . st)
+checkStr  = H.checkStrReprFun (show . toEnumTernary)
 stringtest :: Spec
 stringtest = describe "Sparse Ternary String" $ do
   checkStr(0,"(S=[]|D=0|B=3_0)")
@@ -37,12 +40,12 @@ stringtest = describe "Sparse Ternary String" $ do
   checkStr(5,"(S=[2,3]|D=5|B=3_12)")
   checkStr(6,"(S=[6]|D=6|B=3_20)")
 checkSucc :: Int->SpecWith ()
-checkSucc = H.checkSucc st
+checkSucc = H.checkSucc toEnumTernary
 
 testSucc :: Spec
 testSucc = H.testGen checkSucc "Ternary Succ test" $ enumFromTo 0 50
 checkInvalidCons :: ([Int],String) -> SpecWith ()
-checkInvalidCons = H.checkError ST.mkSTernary
+checkInvalidCons = H.checkError makeTernaryFromList
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
   checkInvalidCons ([1,1],"Incorrect order [1,1]")
@@ -50,13 +53,13 @@ smartConsTest = describe "Smart constructor test" $ do
   checkInvalidCons ([3,1],"Incorrect order [3,1]")
   checkInvalidCons ([4,2,5,162,36],"Invalid elements [4,5,36]")
 checkPred ::Int -> SpecWith ()
-checkPred = H.checkPred st
+checkPred = H.checkPred toEnumTernary
 predTest :: Spec
 predTest = H.testGen checkPred "Ternary Pred test" $ enumFromTo 1 50
 
-checkAdd = H.checkAdd st
+checkAdd = H.checkAdd toEnumTernary
 addTest ::Spec
-addTest = H.testGen checkAdd "Compare Ternary" $ H.selfzip $ enumFromTo 0 2
+addTest = H.testGen checkAdd "Compare Ternary" $ H.selfzip $ enumFromTo 0 1
 spec = do
   toEnum''
   stringtest

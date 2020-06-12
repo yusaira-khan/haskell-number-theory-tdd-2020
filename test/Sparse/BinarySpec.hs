@@ -14,15 +14,18 @@ enumTestList = [
  ( 8 , [8]),
  ( 0 , [])]
 
-sb :: Int -> SB.SBinary
-sb n = toEnum n :: SB.SBinary
+toEnumBinary :: Int -> SB.SBinary
+toEnumBinary n = toEnum n :: SB.SBinary
+makeBinaryFromList :: [Int]->SB.SBinary
+makeBinaryFromList = SB.mkSBinary
+
 toEnumFun :: (Int,[Int]) -> SpecWith ()
-toEnumFun = H.testToEnum SB.mkSBinary sb
+toEnumFun = H.testToEnum makeBinaryFromList toEnumBinary
 
 toEnum'' :: Spec
 toEnum'' = H.testGen toEnumFun "Sparse Binary ToEnum" enumTestList
 checkStr ::(Int,String) -> SpecWith ()
-checkStr  = H.checkStrReprFun (show . sb)
+checkStr  = H.checkStrReprFun (show . toEnumBinary)
 stringtest :: Spec
 stringtest = describe "Sparse Binary String" $ do
   checkStr (0,"(S=[]|D=0|B=2_0)")
@@ -31,7 +34,7 @@ stringtest = describe "Sparse Binary String" $ do
   checkStr (3,"(S=[1,2]|D=3|B=2_11)")
   checkStr (4,"(S=[4]|D=4|B=2_100)")
 checkEq ::(Int,Int,Bool) -> SpecWith ()
-checkEq = H.checkEq sb
+checkEq = H.checkEq toEnumBinary
 eqtest :: Spec
 eqtest = describe "Sparse Eq" $ do
   checkEq (0,0,True)
@@ -42,7 +45,7 @@ eqtest = describe "Sparse Eq" $ do
   checkEq (1,3,False)
 
 checkSucc ::Int -> SpecWith ()
-checkSucc = H.checkSucc sb
+checkSucc = H.checkSucc toEnumBinary
 succtest :: Spec
 succtest = describe "Binary Succ" $ do
   checkSucc 0
@@ -50,21 +53,21 @@ succtest = describe "Binary Succ" $ do
   checkSucc 2
   checkSucc 3
 checkInvalidCons :: ([Int],String) -> SpecWith ()
-checkInvalidCons = H.checkError SB.mkSBinary
+checkInvalidCons = H.checkError makeBinaryFromList
 smartConsTest ::Spec
 smartConsTest = describe "Smart constructor test" $ do
   checkInvalidCons ([1,1],"Incorrect order [1,1]")
   checkInvalidCons ([2,1],"Incorrect order [2,1]")
   checkInvalidCons ([3,2,6],"Invalid elements [3,6]")
 checkPred ::Int -> SpecWith ()
-checkPred = H.checkPred sb
+checkPred = H.checkPred toEnumBinary
 predTest :: Spec
 predTest = H.testGen checkPred "Binary Pred test" $ enumFromTo 1 4
 checkComp :: (Int,Int) -> SpecWith ()
-checkComp = H.checkComp sb
+checkComp = H.checkComp toEnumBinary
 compareTest ::Spec
 compareTest = H.testGen checkComp "Compare Binary" $ H.selfzip $ enumFromTo 0 10
-checkAdd = H.checkAdd sb
+checkAdd = H.checkAdd toEnumBinary
 addTest ::Spec
 addTest = H.testGen checkAdd "Add Binary" $ H.selfzip $ enumFromTo 0 10
 spec = do
